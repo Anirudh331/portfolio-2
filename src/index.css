@@ -251,4 +251,22 @@
   .stagger-3 { animation-delay: 0.3s; }
   .stagger-4 { animation-delay: 0.4s; }
   .stagger-5 { animation-delay: 0.5s; }
+
+  .animate-bounce-run {
+    animation: bounceRun 0.3s ease-in-out infinite;
+  }
+
+  @keyframes bounceRun {
+    0%, 100% {
+      transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(5deg);
+    }
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
 }
