@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import runnerCharacter from '@/assets/runner-character.png';
+import logo from '@/assets/logo.png';
 
 interface Position {
   x: number;
@@ -12,12 +12,10 @@ const MouseFollower = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const animationRef = useRef<number>();
-  const lastMoveRef = useRef<number>(Date.now());
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setTargetPosition({ x: e.clientX, y: e.clientY });
-      lastMoveRef.current = Date.now();
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -32,20 +30,21 @@ const MouseFollower = () => {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         // Check if character should be moving
-        const shouldMove = distance > 30;
+        const shouldMove = distance > 50;
         setIsMoving(shouldMove);
 
         // Flip character based on direction
-        if (Math.abs(dx) > 5) {
+        if (Math.abs(dx) > 10) {
           setIsFlipped(dx < 0);
         }
 
-        if (distance < 30) {
+        // Stop when close enough
+        if (distance < 50) {
           return prev;
         }
 
-        // Easing - move faster when further away
-        const speed = Math.min(distance * 0.08, 12);
+        // MUCH SLOWER easing - reduced speed significantly
+        const speed = Math.min(distance * 0.02, 3);
         const angle = Math.atan2(dy, dx);
 
         return {
@@ -67,17 +66,18 @@ const MouseFollower = () => {
 
   return (
     <div
-      className="fixed pointer-events-none z-40 transition-transform duration-75"
+      className="fixed pointer-events-none z-40"
       style={{
-        left: position.x - 24,
-        top: position.y - 48,
+        left: position.x - 20,
+        top: position.y - 40,
         transform: `scaleX(${isFlipped ? -1 : 1})`,
+        transition: 'transform 0.2s ease-out',
       }}
     >
       <img
-        src={runnerCharacter}
+        src={logo}
         alt=""
-        className={`w-12 h-12 object-contain pixelated ${isMoving ? 'animate-bounce-run' : ''}`}
+        className={`w-10 h-10 object-contain rounded-md ${isMoving ? 'animate-walk' : ''}`}
         style={{
           imageRendering: 'pixelated',
         }}
