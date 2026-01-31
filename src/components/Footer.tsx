@@ -9,10 +9,6 @@ const Footer = () => {
         </cite>
       </blockquote>
 
-      <p className="text-sm text-muted-foreground mb-2">
-        You are the <span className="font-semibold text-foreground">30,521st</span> visitor
-      </p>
-
       <p className="text-sm text-muted-foreground mb-1">
         Design & Built by <span className="font-semibold text-foreground">Anirudh N Raiker</span>
       </p>
