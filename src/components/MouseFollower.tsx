@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import logo from '@/assets/logo.png';
+import runnerCharacter from '@/assets/runner-character.png';
 
 interface Position {
   x: number;
@@ -68,16 +68,16 @@ const MouseFollower = () => {
     <div
       className="fixed pointer-events-none z-40"
       style={{
-        left: position.x - 20,
-        top: position.y - 40,
+        left: position.x - 12,
+        top: position.y - 28,
         transform: `scaleX(${isFlipped ? -1 : 1})`,
         transition: 'transform 0.2s ease-out',
       }}
     >
       <img
-        src={logo}
+        src={runnerCharacter}
         alt=""
-        className={`w-10 h-10 object-contain rounded-md ${isMoving ? 'animate-walk' : ''}`}
+        className={`w-6 h-6 object-contain ${isMoving ? 'animate-run' : ''}`}
         style={{
           imageRendering: 'pixelated',
         }}
