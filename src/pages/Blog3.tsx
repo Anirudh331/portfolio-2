@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ReadingProgress from '@/components/ReadingProgress';
 import { ArrowLeft, Calendar, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogTasteImage from '@/assets/blog-taste.png';
@@ -7,6 +8,7 @@ import blogTasteImage from '@/assets/blog-taste.png';
 const Blog3 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">
         <article className="max-w-3xl mx-auto">
