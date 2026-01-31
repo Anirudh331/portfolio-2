@@ -261,7 +261,7 @@
   }
 
   .animate-run {
-    animation: runAnimation 0.15s steps(2) infinite;
+    animation: runAnimation 0.25s ease-in-out infinite;
   }
 
   @keyframes bounceRun {
@@ -284,19 +284,19 @@
 
   @keyframes runAnimation {
     0% {
-      transform: translateY(0) rotate(-3deg) skewX(-2deg);
+      transform: translateY(0) rotate(-8deg) scaleY(0.95);
     }
     25% {
-      transform: translateY(-3px) rotate(0deg) skewX(0deg);
+      transform: translateY(-6px) rotate(0deg) scaleY(1.05);
     }
     50% {
-      transform: translateY(0) rotate(3deg) skewX(2deg);
+      transform: translateY(0) rotate(8deg) scaleY(0.95);
     }
     75% {
-      transform: translateY(-3px) rotate(0deg) skewX(0deg);
+      transform: translateY(-6px) rotate(0deg) scaleY(1.05);
     }
     100% {
-      transform: translateY(0) rotate(-3deg) skewX(-2deg);
+      transform: translateY(0) rotate(-8deg) scaleY(0.95);
     }
   }
 
