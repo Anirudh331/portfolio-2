@@ -257,7 +257,7 @@
   }
 
   .animate-walk {
-    animation: legRun 0.2s ease-in-out infinite;
+    animation: walkBounce 0.5s ease-in-out infinite;
   }
 
   .animate-run {
@@ -270,24 +270,6 @@
     }
     50% {
       transform: translateY(-8px) rotate(5deg);
-    }
-  }
-
-  @keyframes legRun {
-    0% {
-      transform: translateY(0) skewX(-2deg);
-    }
-    25% {
-      transform: translateY(-3px) skewX(0deg);
-    }
-    50% {
-      transform: translateY(0) skewX(2deg);
-    }
-    75% {
-      transform: translateY(-3px) skewX(0deg);
-    }
-    100% {
-      transform: translateY(0) skewX(-2deg);
     }
   }
 
