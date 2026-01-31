@@ -1,14 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
 import profileAvatar from '@/assets/profile-avatar.png';
+import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 
 const Navbar = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
     document.documentElement.classList.toggle('dark');
   };
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="container mx-auto sticky top-0 z-50 py-4 glass-nav">
@@ -16,7 +26,7 @@ const Navbar = () => {
         <div className="flex items-baseline gap-4">
           <a href="/" className="hover-scale will-change-transform">
             <img
-              src={profileAvatar}
+              src={isDark ? profileAvatarDark : profileAvatar}
               alt="Ram"
               className="h-12 w-12 rounded-md border border-border"
             />
