@@ -15,8 +15,22 @@ const ContactCTA = () => {
     message: ''
   });
 
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidEmail(formData.email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -39,8 +53,8 @@ const ContactCTA = () => {
       }
     } catch {
       toast({
-        title: "Oops!",
-        description: "Something went wrong. Please try again.",
+        title: "Something went wrong",
+        description: "Please try again later.",
         variant: "destructive"
       });
     } finally {
