@@ -2,46 +2,64 @@ import projectNotesbuddy from '@/assets/project-notesbuddy.png';
 import projectAppwrite from '@/assets/project-appwrite.png';
 import projectSyncify from '@/assets/project-syncify.png';
 import projectPasandida from '@/assets/project-pasandida.png';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { Rocket, Film, BookOpen } from 'lucide-react';
 
 interface Project {
   name: string;
   image: string;
   description: string;
-  status: 'operational' | 'building';
+  status: string;
+  statusIcon: 'building' | 'concept' | 'completed';
   link: string;
 }
 
 const projects: Project[] = [
   {
-    name: 'NotesBuddy',
+    name: 'BacklogBuddy',
     image: projectNotesbuddy,
-    description: 'A comprehensive study platform with notes, flashcards, quizzes, AI chatbot, and interactive learning tools',
-    status: 'operational',
+    description: 'A student-focused education platform addressing academic backlogs. Built for university students who need structured support.',
+    status: 'MVP / Early Build',
+    statusIcon: 'building',
     link: '#',
   },
   {
-    name: 'Appwrite MCP Server',
+    name: 'Graduate Prep Platform',
     image: projectAppwrite,
-    description: 'Model Context Protocol server for seamless Appwrite database operations with 7 powerful tools and 99.9% success rate',
-    status: 'operational',
+    description: 'A preparation ecosystem for graduates navigating exams and career decisions. Focused on clarity over overwhelm.',
+    status: 'Concept + Development',
+    statusIcon: 'concept',
     link: '#',
   },
   {
-    name: 'Syncify',
+    name: 'Award-Winning Short Films',
     image: projectSyncify,
-    description: 'Real-time music streaming platform with synchronized playback, live chat, and social listening features',
-    status: 'operational',
+    description: 'Psychological and socially grounded short films with national recognition. Stories that stay with audiences.',
+    status: 'Completed',
+    statusIcon: 'completed',
     link: '#',
   },
   {
-    name: 'Pasandida Aurat',
+    name: 'Marketing Experiments',
     image: projectPasandida,
-    description: 'Innovative dating platform featuring anonymous questions and authentic connections - currently in development',
-    status: 'building',
+    description: 'Ongoing tests in content, positioning, and audience building. Learning what works through real execution.',
+    status: 'Ongoing',
+    statusIcon: 'building',
     link: '#',
   },
 ];
+
+const StatusIcon = ({ type }: { type: string }) => {
+  switch (type) {
+    case 'building':
+      return <Rocket className="w-3.5 h-3.5 text-yellow-500" />;
+    case 'concept':
+      return <BookOpen className="w-3.5 h-3.5 text-blue-500" />;
+    case 'completed':
+      return <Film className="w-3.5 h-3.5 text-green-500" />;
+    default:
+      return null;
+  }
+};
 
 const ProjectCard = ({ project }: { project: Project }) => (
   <a href={project.link} className="project-card block">
@@ -59,20 +77,11 @@ const ProjectCard = ({ project }: { project: Project }) => (
       </p>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-xs">
-          {project.status === 'operational' ? (
-            <>
-              <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-              <span className="text-green-600">All Systems Operational</span>
-            </>
-          ) : (
-            <>
-              <Loader2 className="w-3.5 h-3.5 text-yellow-500 animate-spin" />
-              <span className="text-yellow-600">Building</span>
-            </>
-          )}
+          <StatusIcon type={project.statusIcon} />
+          <span className="text-muted-foreground">{project.status}</span>
         </div>
         <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          View Details
+          Learn More
         </span>
       </div>
     </div>
@@ -95,7 +104,7 @@ const Projects = () => {
         href="#"
         className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
       >
-        Show all projects
+        View all work
       </a>
     </section>
   );

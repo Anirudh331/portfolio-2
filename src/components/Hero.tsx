@@ -3,9 +3,8 @@ import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import cursorIcon from '@/assets/cursor.webp';
 import { FileText, Send } from 'lucide-react';
 
-const TechBadge = ({ children, icon }: { children: React.ReactNode; icon?: string }) => (
+const SkillBadge = ({ children }: { children: React.ReactNode }) => (
   <span className="tech-badge">
-    {icon && <img src={icon} alt="" className="w-4 h-4" />}
     {children}
   </span>
 );
@@ -28,31 +27,30 @@ const Hero = () => {
           />
         </div>
         <div className="absolute -bottom-1 -right-1 flex items-center gap-1 px-2 py-0.5 text-xs bg-muted rounded-full border">
-          <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-          <span className="text-muted-foreground">Offline in</span>
-          <img src={cursorIcon} alt="Cursor" className="w-4 h-4" />
-          <span className="font-medium">Cursor</span>
+          <span className="w-2 h-2 rounded-full bg-green-500"></span>
+          <span className="text-muted-foreground">Building</span>
+          <img src={cursorIcon} alt="Work" className="w-4 h-4" />
+          <span className="font-medium">MVPs</span>
         </div>
       </div>
 
       <p className="text-sm text-muted-foreground mb-2">
-        Yesterday worked <span className="font-semibold text-foreground">2h 52m</span>
+        Currently shipping <span className="font-semibold text-foreground">education products</span>
       </p>
 
       <h1 className="text-3xl md:text-4xl font-bold mb-4">
-        Hi, I'm Anirudh — <span className="text-muted-foreground">A Full Stack web developer.</span>
+        Hi, I'm Anirudh — <span className="text-muted-foreground">Media, marketing, and product building.</span>
       </h1>
 
       <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-        I build interactive web apps using{' '}
-        <TechBadge icon="https://www.typescriptlang.org/favicon-32x32.png">Typescript</TechBadge>,{' '}
-        <TechBadge icon="https://react.dev/favicon-32x32.png">React</TechBadge>,{' '}
-        <TechBadge icon="https://nextjs.org/favicon.ico">Next.js</TechBadge>,{' '}
-        <TechBadge icon="https://bun.sh/logo.svg">Bun</TechBadge>
+        BCom graduate. National award–winning filmmaker. Founder building education startups.
+        I work at the intersection of{' '}
+        <SkillBadge>Storytelling</SkillBadge>,{' '}
+        <SkillBadge>Marketing</SkillBadge>,{' '}
+        <SkillBadge>Product</SkillBadge>
         {' '}and{' '}
-        <TechBadge icon="https://www.postgresql.org/favicon.ico">PostgreSQL</TechBadge>.
-        {' '}With a focus on <span className="font-semibold text-foreground">UI</span> design. Enthusiastic about{' '}
-        <span className="font-semibold text-foreground">Three.js</span>, driven by a keen eye for design.
+        <SkillBadge>Media</SkillBadge>.
+        {' '}Learning marketing through real execution, not theory.
       </p>
 
       <div className="flex flex-wrap gap-3 mb-6">
@@ -81,11 +79,8 @@ const SocialLinks = () => {
   const socials = [
     { name: 'X', href: '#', icon: 'X' },
     { name: 'LinkedIn', href: '#', icon: 'in' },
-    { name: 'GitHub', href: '#', icon: 'GH' },
     { name: 'YouTube', href: '#', icon: 'YT' },
     { name: 'Instagram', href: '#', icon: 'IG' },
-    { name: 'Pinterest', href: '#', icon: 'P' },
-    { name: 'Threads', href: '#', icon: '01' },
     { name: 'Email', href: '#', icon: '✉' },
   ];
 

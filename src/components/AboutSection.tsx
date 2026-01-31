@@ -11,20 +11,21 @@ const AboutSection = () => {
         <div className="relative w-16 h-16 flex-shrink-0">
           <img
             src={profileAvatar}
-            alt="Ramkrishna Swarnkar"
+            alt="Anirudh N Raiker"
             className="absolute inset-0 w-16 h-16 rounded-lg border dark:opacity-0 transition-opacity duration-0"
           />
           <img
             src={profileAvatarDark}
-            alt="Ramkrishna Swarnkar"
+            alt="Anirudh N Raiker"
             className="absolute inset-0 w-16 h-16 rounded-lg border opacity-0 dark:opacity-100 transition-opacity duration-0"
           />
         </div>
         <div>
-          <h3 className="font-semibold text-lg mb-2">Ramkrishna Swarnkar</h3>
+          <h3 className="font-semibold text-lg mb-2">Anirudh N Raiker</h3>
           <p className="text-muted-foreground">
-            I'm a Full Stack web developer and Open Source Contributor, I love building
-            products to solve real-world problems. I'm specialized in building MVP's.
+            BCom graduate with a background in media and storytelling. National award recognition for short films. 
+            Currently building education-focused startups and learning marketing through real execution — 
+            shipping products, running experiments, and improving through outcomes rather than theory.
           </p>
         </div>
       </div>

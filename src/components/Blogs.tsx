@@ -12,19 +12,19 @@ interface BlogPost {
 
 const blogs: BlogPost[] = [
   {
-    title: 'What is taste and how can you develop it?',
-    description: 'Understanding what is taste, resources and how to practice',
+    title: 'What storytelling teaches marketing',
+    description: 'How directing films shaped the way I think about positioning and audience',
     image: blogTaste,
-    tags: ['Frontend', 'Design'],
-    date: 'December 6, 2025',
+    tags: ['Marketing', 'Storytelling'],
+    date: 'January 2026',
     link: '#',
   },
   {
-    title: 'Go in bits',
-    description: "Archive of all the links from my socials for go tuts.",
+    title: 'Why most student platforms fail',
+    description: 'Observations from building in the education space',
     image: blogGo,
-    tags: ['Go', 'Development', 'Backend'],
-    date: 'October 1, 2025',
+    tags: ['Product', 'Education'],
+    date: 'December 2025',
     link: '#',
   },
 ];
@@ -62,8 +62,8 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
 const Blogs = () => {
   return (
     <section id="blogs" className="container mx-auto px-4 py-8">
-      <p className="section-label">Featured</p>
-      <h2 className="section-title">Blogs</h2>
+      <p className="section-label">Writing</p>
+      <h2 className="section-title">Thoughts</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {blogs.map((blog) => (
@@ -75,7 +75,7 @@ const Blogs = () => {
         href="#"
         className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
       >
-        Show all blogs
+        View all writing
       </a>
     </section>
   );

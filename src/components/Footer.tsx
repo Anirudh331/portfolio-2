@@ -14,7 +14,7 @@ const Footer = () => {
       </p>
 
       <p className="text-sm text-muted-foreground mb-1">
-        Design & Developed by <span className="font-semibold text-foreground">Ramxcodes</span>
+        Design & Built by <span className="font-semibold text-foreground">Anirudh N Raiker</span>
       </p>
 
       <p className="text-xs text-muted-foreground">
