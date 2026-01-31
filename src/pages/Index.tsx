@@ -1,12 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import SpotifyCard from '@/components/SpotifyCard';
+import Experience from '@/components/Experience';
+import Projects from '@/components/Projects';
+import AboutSection from '@/components/AboutSection';
+import GitHubActivity from '@/components/GitHubActivity';
+import Blogs from '@/components/Blogs';
+import ContactCTA from '@/components/ContactCTA';
+import SetupLinks from '@/components/SetupLinks';
+import Footer from '@/components/Footer';
+import ChatWidget from '@/components/ChatWidget';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <Hero />
+        <SpotifyCard />
+        <Experience />
+        <Projects />
+        <AboutSection />
+        <GitHubActivity />
+        <Blogs />
+        <ContactCTA />
+        <SetupLinks />
+      </main>
+      <Footer />
+      <ChatWidget />
     </div>
   );
 };
