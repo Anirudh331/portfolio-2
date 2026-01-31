@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowLeft, Calendar, ExternalLink, Brain, Eye, Lightbulb, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import blogTasteImage from '@/assets/blog-taste.png';
+import blogMindFirstImage from '@/assets/blog-mind-first.svg';
 
 const Blog1 = () => {
   return (
@@ -22,7 +22,7 @@ const Blog1 = () => {
           {/* Hero Image */}
           <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8 bg-muted animate-scale-in">
             <img 
-              src={blogTasteImage} 
+              src={blogMindFirstImage} 
               alt="Why What Comes to Mind First Wins" 
               className="w-full h-full object-cover"
             />
