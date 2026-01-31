@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import blogTaste from '@/assets/blog-taste.png';
 import blogGo from '@/assets/blog-go.png';
 
@@ -17,7 +18,7 @@ const blogs: BlogPost[] = [
     image: blogTaste,
     tags: ['Marketing', 'Storytelling'],
     date: 'January 2026',
-    link: '#',
+    link: '/blog1',
   },
   {
     title: 'Why most student platforms fail',
@@ -25,12 +26,12 @@ const blogs: BlogPost[] = [
     image: blogGo,
     tags: ['Product', 'Education'],
     date: 'December 2025',
-    link: '#',
+    link: '/blog2',
   },
 ];
 
 const BlogCard = ({ blog }: { blog: BlogPost }) => (
-  <a href={blog.link} className="project-card block">
+  <Link to={blog.link} className="project-card block">
     <div className="aspect-video overflow-hidden">
       <img
         src={blog.image}
@@ -56,7 +57,7 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
         <span className="hover:text-foreground transition-colors">Read More</span>
       </div>
     </div>
-  </a>
+  </Link>
 );
 
 const Blogs = () => {
@@ -71,12 +72,12 @@ const Blogs = () => {
         ))}
       </div>
 
-      <a
-        href="#"
+      <Link
+        to="/blog"
         className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
       >
         View all writing
-      </a>
+      </Link>
     </section>
   );
 };
