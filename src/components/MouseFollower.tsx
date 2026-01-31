@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.png';
-import characterGreet from '@/assets/character-greet.png';
+import characterShocked from '@/assets/character-shocked.png';
 
 interface Position {
   x: number;
   y: number;
 }
 
-type CharacterState = 'idle' | 'greeting' | 'running';
+type CharacterState = 'idle' | 'shocked' | 'running';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -16,7 +16,7 @@ const MouseFollower = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const animationRef = useRef<number>();
-  const greetingTimeoutRef = useRef<NodeJS.Timeout>();
+  const shockedTimeoutRef = useRef<NodeJS.Timeout>();
   const wasIdleRef = useRef(true);
 
   useEffect(() => {
@@ -40,33 +40,38 @@ const MouseFollower = () => {
 
         // Handle state transitions
         if (shouldMove && wasIdleRef.current && characterState === 'idle') {
-          // Transition from idle to greeting
-          setCharacterState('greeting');
+          // Transition from idle to shocked - character freezes in place
+          setCharacterState('shocked');
           wasIdleRef.current = false;
           
           // Clear any existing timeout
-          if (greetingTimeoutRef.current) {
-            clearTimeout(greetingTimeoutRef.current);
+          if (shockedTimeoutRef.current) {
+            clearTimeout(shockedTimeoutRef.current);
           }
           
-          // After 1.5 seconds, switch to running
-          greetingTimeoutRef.current = setTimeout(() => {
+          // After 0.5 seconds, switch to running
+          shockedTimeoutRef.current = setTimeout(() => {
             setCharacterState('running');
-          }, 1500);
+          }, 500);
         } else if (!shouldMove && characterState !== 'idle') {
           // Back to idle when stopped
           wasIdleRef.current = true;
           setCharacterState('idle');
           
-          // Clear greeting timeout if we stop before it completes
-          if (greetingTimeoutRef.current) {
-            clearTimeout(greetingTimeoutRef.current);
+          // Clear shocked timeout if we stop before it completes
+          if (shockedTimeoutRef.current) {
+            clearTimeout(shockedTimeoutRef.current);
           }
         }
 
         // Flip character based on direction
         if (Math.abs(dx) > 10) {
           setIsFlipped(dx < 0);
+        }
+
+        // Don't move if in shocked state - character freezes
+        if (characterState === 'shocked') {
+          return prev;
         }
 
         // Stop when close enough
@@ -98,8 +103,8 @@ const MouseFollower = () => {
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
-      if (greetingTimeoutRef.current) {
-        clearTimeout(greetingTimeoutRef.current);
+      if (shockedTimeoutRef.current) {
+        clearTimeout(shockedTimeoutRef.current);
       }
     };
   }, []);
@@ -125,14 +130,14 @@ const MouseFollower = () => {
           transition: 'opacity 0.15s ease-out',
         }}
       />
-      {/* Greeting character - shows for 1.5s when mouse first moves */}
+      {/* Shocked character - freezes for 0.5s when mouse first moves */}
       <img
-        src={characterGreet}
+        src={characterShocked}
         alt=""
         className="w-12 h-12 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'greeting' ? 1 : 0,
+          opacity: characterState === 'shocked' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
         }}
       />
