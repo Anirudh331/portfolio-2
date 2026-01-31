@@ -3,13 +3,14 @@ import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.png';
 import characterShocked from '@/assets/character-shocked.png';
 import characterClimb from '@/assets/character-climb.png';
+import characterRunDown from '@/assets/character-run-down.png';
 
 interface Position {
   x: number;
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'descending';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -39,8 +40,9 @@ const MouseFollower = () => {
         // Check if character should be moving
         const shouldMove = distance > 50;
         
-        // Check if cursor is above character (negative dy means cursor is higher)
+        // Check vertical direction (negative dy = cursor above, positive dy = cursor below)
         const cursorIsAbove = dy < -30;
+        const cursorIsBelow = dy > 30;
 
         // Handle state transitions
         if (shouldMove && wasIdleRef.current && characterState === 'idle') {
@@ -53,10 +55,15 @@ const MouseFollower = () => {
             clearTimeout(shockedTimeoutRef.current);
           }
           
-          // After 0.5 seconds, switch to climbing or running based on cursor position
+          // After 0.5 seconds, switch to appropriate movement state
           shockedTimeoutRef.current = setTimeout(() => {
-            // Will be determined in the next frame based on cursor position
-            setCharacterState(cursorIsAbove ? 'climbing' : 'running');
+            if (cursorIsAbove) {
+              setCharacterState('climbing');
+            } else if (cursorIsBelow) {
+              setCharacterState('descending');
+            } else {
+              setCharacterState('running');
+            }
           }, 500);
         } else if (!shouldMove && characterState !== 'idle') {
           // Back to idle when stopped
@@ -67,11 +74,13 @@ const MouseFollower = () => {
           if (shockedTimeoutRef.current) {
             clearTimeout(shockedTimeoutRef.current);
           }
-        } else if (characterState === 'climbing' || characterState === 'running') {
-          // Switch between climbing and running based on cursor position
+        } else if (characterState === 'climbing' || characterState === 'running' || characterState === 'descending') {
+          // Switch between states based on cursor position
           if (cursorIsAbove && characterState !== 'climbing') {
             setCharacterState('climbing');
-          } else if (!cursorIsAbove && characterState !== 'running') {
+          } else if (cursorIsBelow && characterState !== 'descending') {
+            setCharacterState('descending');
+          } else if (!cursorIsAbove && !cursorIsBelow && characterState !== 'running') {
             setCharacterState('running');
           }
         }
@@ -170,7 +179,21 @@ const MouseFollower = () => {
           transform: 'scaleX(-1)',
         }}
       />
-      {/* Running character */}
+      {/* Descending character - when cursor is below */}
+      <img
+        src={characterRunDown}
+        alt=""
+        className="w-8 h-8 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'descending' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+          marginTop: '8px',
+          marginLeft: '8px',
+          transform: 'scaleX(-1)',
+        }}
+      />
+      {/* Running character - horizontal movement */}
       <img
         src={characterRunning}
         alt=""
