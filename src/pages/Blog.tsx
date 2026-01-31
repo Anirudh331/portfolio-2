@@ -16,10 +16,10 @@ interface BlogPost {
 
 const blogs: BlogPost[] = [
   {
-    title: 'What storytelling teaches marketing',
-    description: 'How directing films shaped the way I think about positioning and audience',
+    title: 'Why What Comes to Mind First Wins',
+    description: 'Understanding accessibility-based decision making and why it matters for your brand',
     image: blogTaste,
-    tags: ['Marketing', 'Storytelling'],
+    tags: ['Marketing', 'Psychology'],
     date: 'January 2026',
     link: '/blog1',
   },
