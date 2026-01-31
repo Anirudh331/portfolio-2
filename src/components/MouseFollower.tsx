@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.png';
+import characterGreet from '@/assets/character-greet.png';
 
 interface Position {
   x: number;
   y: number;
 }
 
+type CharacterState = 'idle' | 'greeting' | 'running';
+
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
   const [targetPosition, setTargetPosition] = useState<Position>({ x: 100, y: 100 });
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isMoving, setIsMoving] = useState(false);
+  const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const animationRef = useRef<number>();
+  const greetingTimeoutRef = useRef<NodeJS.Timeout>();
+  const wasIdleRef = useRef(true);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -32,7 +37,32 @@ const MouseFollower = () => {
 
         // Check if character should be moving
         const shouldMove = distance > 50;
-        setIsMoving(shouldMove);
+
+        // Handle state transitions
+        if (shouldMove && wasIdleRef.current && characterState === 'idle') {
+          // Transition from idle to greeting
+          setCharacterState('greeting');
+          wasIdleRef.current = false;
+          
+          // Clear any existing timeout
+          if (greetingTimeoutRef.current) {
+            clearTimeout(greetingTimeoutRef.current);
+          }
+          
+          // After 1.5 seconds, switch to running
+          greetingTimeoutRef.current = setTimeout(() => {
+            setCharacterState('running');
+          }, 1500);
+        } else if (!shouldMove && characterState !== 'idle') {
+          // Back to idle when stopped
+          wasIdleRef.current = true;
+          setCharacterState('idle');
+          
+          // Clear greeting timeout if we stop before it completes
+          if (greetingTimeoutRef.current) {
+            clearTimeout(greetingTimeoutRef.current);
+          }
+        }
 
         // Flip character based on direction
         if (Math.abs(dx) > 10) {
@@ -63,7 +93,16 @@ const MouseFollower = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [targetPosition]);
+  }, [targetPosition, characterState]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (greetingTimeoutRef.current) {
+        clearTimeout(greetingTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -75,25 +114,36 @@ const MouseFollower = () => {
         transition: 'transform 0.2s ease-out',
       }}
     >
-      {/* Idle character - shown when not moving */}
+      {/* Idle character */}
       <img
         src={characterIdle}
         alt=""
         className="w-12 h-12 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: isMoving ? 0 : 1,
+          opacity: characterState === 'idle' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
         }}
       />
-      {/* Running character - shown when moving with subtle bounce */}
+      {/* Greeting character - shows for 1.5s when mouse first moves */}
+      <img
+        src={characterGreet}
+        alt=""
+        className="w-12 h-12 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'greeting' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+        }}
+      />
+      {/* Running character */}
       <img
         src={characterRunning}
         alt=""
-        className={`w-12 h-12 object-contain ${isMoving ? 'animate-walk' : ''}`}
+        className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: isMoving ? 1 : 0,
+          opacity: characterState === 'running' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
         }}
       />
