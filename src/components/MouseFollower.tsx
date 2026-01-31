@@ -4,13 +4,14 @@ import characterRunning from '@/assets/character-running.png';
 import characterShocked from '@/assets/character-shocked.png';
 import characterClimb from '@/assets/character-climb.png';
 import characterRunDown from '@/assets/character-run-down.png';
+import characterHappy from '@/assets/character-happy.png';
 
 interface Position {
   x: number;
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'descending';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'descending' | 'happy';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -18,7 +19,7 @@ const MouseFollower = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const animationRef = useRef<number>();
-  const shockedTimeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
   const wasIdleRef = useRef(true);
 
   useEffect(() => {
@@ -51,12 +52,12 @@ const MouseFollower = () => {
           wasIdleRef.current = false;
           
           // Clear any existing timeout
-          if (shockedTimeoutRef.current) {
-            clearTimeout(shockedTimeoutRef.current);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
           }
           
           // After 0.5 seconds, switch to appropriate movement state
-          shockedTimeoutRef.current = setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             if (cursorIsAbove) {
               setCharacterState('climbing');
             } else if (cursorIsBelow) {
@@ -65,15 +66,45 @@ const MouseFollower = () => {
               setCharacterState('running');
             }
           }, 500);
-        } else if (!shouldMove && characterState !== 'idle') {
-          // Back to idle when stopped
-          wasIdleRef.current = true;
-          setCharacterState('idle');
+        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'descending')) {
+          // Reached destination - show happy before idle
+          setCharacterState('happy');
           
-          // Clear shocked timeout if we stop before it completes
-          if (shockedTimeoutRef.current) {
-            clearTimeout(shockedTimeoutRef.current);
+          // Clear any existing timeout
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
           }
+          
+          // After 0.5 seconds, go to idle
+          timeoutRef.current = setTimeout(() => {
+            wasIdleRef.current = true;
+            setCharacterState('idle');
+          }, 500);
+        } else if (!shouldMove && characterState === 'shocked') {
+          // If stopped during shocked state, go to happy then idle
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          setCharacterState('happy');
+          timeoutRef.current = setTimeout(() => {
+            wasIdleRef.current = true;
+            setCharacterState('idle');
+          }, 500);
+        } else if (shouldMove && characterState === 'happy') {
+          // If mouse moves during happy state, go back to shocked
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          setCharacterState('shocked');
+          timeoutRef.current = setTimeout(() => {
+            if (cursorIsAbove) {
+              setCharacterState('climbing');
+            } else if (cursorIsBelow) {
+              setCharacterState('descending');
+            } else {
+              setCharacterState('running');
+            }
+          }, 500);
         } else if (characterState === 'climbing' || characterState === 'running' || characterState === 'descending') {
           // Switch between states based on cursor position
           if (cursorIsAbove && characterState !== 'climbing') {
@@ -90,8 +121,8 @@ const MouseFollower = () => {
           setIsFlipped(dx < 0);
         }
 
-        // Don't move if in shocked state - character freezes
-        if (characterState === 'shocked') {
+        // Don't move if in shocked or happy state - character freezes
+        if (characterState === 'shocked' || characterState === 'happy') {
           return prev;
         }
 
@@ -124,8 +155,8 @@ const MouseFollower = () => {
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
-      if (shockedTimeoutRef.current) {
-        clearTimeout(shockedTimeoutRef.current);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
   }, []);
@@ -163,6 +194,19 @@ const MouseFollower = () => {
           marginTop: '8px',
           marginLeft: '8px',
           transform: 'scaleX(-1)',
+        }}
+      />
+      {/* Happy character - shows for 0.5s when reaching destination */}
+      <img
+        src={characterHappy}
+        alt=""
+        className="w-8 h-8 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'happy' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+          marginTop: '8px',
+          marginLeft: '8px',
         }}
       />
       {/* Climbing character - when cursor is above */}
