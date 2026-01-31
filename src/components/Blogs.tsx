@@ -17,7 +17,7 @@ const blogs: BlogPost[] = [
     image: blogTaste,
     tags: ['Marketing', 'Storytelling'],
     date: 'January 2026',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
+    link: '#',
   },
   {
     title: 'Why most student platforms fail',
@@ -25,52 +25,12 @@ const blogs: BlogPost[] = [
     image: blogGo,
     tags: ['Product', 'Education'],
     date: 'December 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
-  },
-  {
-    title: 'Building before being ready',
-    description: 'Why waiting for the perfect moment kills more ideas than bad execution',
-    image: blogTaste,
-    tags: ['Mindset', 'Product'],
-    date: 'November 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
-  },
-  {
-    title: 'The myth of the target audience',
-    description: 'How I stopped guessing and started listening to real users',
-    image: blogGo,
-    tags: ['Marketing', 'Strategy'],
-    date: 'October 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
-  },
-  {
-    title: 'What film direction taught me about product design',
-    description: 'Lessons from framing shots that apply to framing user experiences',
-    image: blogTaste,
-    tags: ['Design', 'Storytelling'],
-    date: 'September 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
-  },
-  {
-    title: 'Running experiments without a budget',
-    description: 'How I test marketing ideas with zero ad spend and real feedback',
-    image: blogGo,
-    tags: ['Marketing', 'Growth'],
-    date: 'August 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
-  },
-  {
-    title: 'Why I stopped chasing virality',
-    description: 'The shift from reach to resonance in content strategy',
-    image: blogTaste,
-    tags: ['Content', 'Strategy'],
-    date: 'July 2025',
-    link: 'https://ramx.in/blog/what-is-taste-and-how-can-you-develop-it',
+    link: '#',
   },
 ];
 
 const BlogCard = ({ blog }: { blog: BlogPost }) => (
-  <a href={blog.link} target="_blank" rel="noopener noreferrer" className="project-card block">
+  <a href={blog.link} className="project-card block">
     <div className="aspect-video overflow-hidden">
       <img
         src={blog.image}
@@ -91,13 +51,10 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
           </span>
         ))}
       </div>
-      <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>{blog.date}</span>
+        <span className="hover:text-foreground transition-colors">Read More</span>
       </div>
-      <p className="text-xs text-muted-foreground">
-        To read full, check out at{' '}
-        <span className="text-primary hover:underline font-medium">The Why Layer</span>
-      </p>
     </div>
   </a>
 );
