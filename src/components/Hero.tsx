@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import profileAvatar from '@/assets/profile-avatar.png';
+import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import cursorIcon from '@/assets/cursor.webp';
 import { FileText, Send } from 'lucide-react';
 
@@ -10,11 +12,21 @@ const TechBadge = ({ children, icon }: { children: React.ReactNode; icon?: strin
 );
 
 const Hero = () => {
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="container mx-auto px-4 py-8 animate-fade-in">
       <div className="relative inline-block mb-6">
         <img
-          src={profileAvatar}
+          src={isDark ? profileAvatarDark : profileAvatar}
           alt="Ram"
           className="w-24 h-24 rounded-xl border-2 border-border"
         />
