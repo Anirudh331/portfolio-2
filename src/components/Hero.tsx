@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import profileAvatar from '@/assets/profile-avatar.png';
 import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import cursorIcon from '@/assets/cursor.webp';
@@ -12,24 +11,22 @@ const TechBadge = ({ children, icon }: { children: React.ReactNode; icon?: strin
 );
 
 const Hero = () => {
-  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section className="container mx-auto px-4 py-8 animate-fade-in">
       <div className="relative inline-block mb-6">
-        <img
-          src={isDark ? profileAvatarDark : profileAvatar}
-          alt="Ram"
-          className="w-24 h-24 rounded-xl border-2 border-border"
-        />
+        <div className="relative w-24 h-24">
+          <img
+            src={profileAvatar}
+            alt="Ram"
+            className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border dark:opacity-0 transition-opacity duration-0"
+          />
+          <img
+            src={profileAvatarDark}
+            alt="Ram"
+            className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
+          />
+        </div>
         <div className="absolute -bottom-1 -right-1 flex items-center gap-1 px-2 py-0.5 text-xs bg-muted rounded-full border">
           <span className="w-2 h-2 rounded-full bg-gray-400"></span>
           <span className="text-muted-foreground">Offline in</span>
