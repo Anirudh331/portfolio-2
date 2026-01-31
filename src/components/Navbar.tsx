@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
 import profileAvatar from '@/assets/profile-avatar.png';
 import profileAvatarDark from '@/assets/profile-avatar-dark.png';
@@ -12,24 +12,23 @@ const Navbar = () => {
     document.documentElement.classList.toggle('dark');
   };
 
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <header className="container mx-auto sticky top-0 z-50 py-4 glass-nav">
       <div className="flex items-center justify-between px-2">
         <div className="flex items-baseline gap-4">
           <a href="/" className="hover-scale will-change-transform">
-            <img
-              src={isDark ? profileAvatarDark : profileAvatar}
-              alt="Ram"
-              className="h-12 w-12 rounded-md border border-border"
-            />
+            <div className="relative h-12 w-12">
+              <img
+                src={profileAvatar}
+                alt="Ram"
+                className="absolute inset-0 h-12 w-12 rounded-md border border-border dark:opacity-0 transition-opacity duration-0"
+              />
+              <img
+                src={profileAvatarDark}
+                alt="Ram"
+                className="absolute inset-0 h-12 w-12 rounded-md border border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
+              />
+            </div>
           </a>
           <nav className="flex items-baseline gap-4">
             <a href="#experience" className="nav-link">Work</a>
