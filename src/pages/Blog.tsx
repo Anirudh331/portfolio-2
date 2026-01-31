@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
+import blogMindFirst from '@/assets/blog-mind-first.svg';
 import blogTaste from '@/assets/blog-taste.png';
 import blogGo from '@/assets/blog-go.png';
 
@@ -18,7 +19,7 @@ const blogs: BlogPost[] = [
   {
     title: 'Why What Comes to Mind First Wins',
     description: 'Understanding accessibility-based decision making and why it matters for your brand',
-    image: blogTaste,
+    image: blogMindFirst,
     tags: ['Marketing', 'Psychology'],
     date: 'January 2026',
     link: '/blog1',
