@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import runnerCharacter from '@/assets/runner-character.png';
+import characterIdle from '@/assets/character-idle.png';
+import characterRunning from '@/assets/character-running.png';
 
 interface Position {
   x: number;
@@ -43,8 +44,8 @@ const MouseFollower = () => {
           return prev;
         }
 
-        // MUCH SLOWER easing - reduced speed significantly
-        const speed = Math.min(distance * 0.02, 3);
+        // Even slower speed for smoother following
+        const speed = Math.min(distance * 0.015, 2);
         const angle = Math.atan2(dy, dx);
 
         return {
@@ -68,18 +69,32 @@ const MouseFollower = () => {
     <div
       className="fixed pointer-events-none z-40"
       style={{
-        left: position.x - 16,
-        top: position.y - 32,
+        left: position.x - 24,
+        top: position.y - 48,
         transform: `scaleX(${isFlipped ? -1 : 1})`,
         transition: 'transform 0.2s ease-out',
       }}
     >
+      {/* Idle character - shown when not moving */}
       <img
-        src={runnerCharacter}
+        src={characterIdle}
         alt=""
-        className={`w-10 h-10 object-contain ${isMoving ? 'animate-run' : ''}`}
+        className="w-12 h-12 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: isMoving ? 0 : 1,
+          transition: 'opacity 0.15s ease-out',
+        }}
+      />
+      {/* Running character - shown when moving */}
+      <img
+        src={characterRunning}
+        alt=""
+        className="w-12 h-12 object-contain"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: isMoving ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
         }}
       />
     </div>
