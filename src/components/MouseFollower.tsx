@@ -77,11 +77,9 @@ const MouseFollower = () => {
       <img
         src={runnerCharacter}
         alt=""
-        className={`w-8 h-8 object-contain ${isMoving ? 'animate-run' : ''}`}
+        className={`w-10 h-10 object-contain ${isMoving ? 'animate-run' : ''}`}
         style={{
-          imageRendering: 'pixelated',
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
-          mixBlendMode: 'screen',
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
         }}
       />
     </div>
