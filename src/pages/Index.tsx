@@ -9,7 +9,6 @@ import Blogs from '@/components/Blogs';
 import ContactCTA from '@/components/ContactCTA';
 import SetupLinks from '@/components/SetupLinks';
 import Footer from '@/components/Footer';
-import ChatWidget from '@/components/ChatWidget';
 import MouseFollower from '@/components/MouseFollower';
 
 const Index = () => {
@@ -29,7 +28,6 @@ const Index = () => {
         <SetupLinks />
       </main>
       <Footer />
-      <ChatWidget />
     </div>
   );
 };
