@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.png';
 import characterShocked from '@/assets/character-shocked.png';
+import characterClimb from '@/assets/character-climb.png';
 
 interface Position {
   x: number;
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -37,6 +38,9 @@ const MouseFollower = () => {
 
         // Check if character should be moving
         const shouldMove = distance > 50;
+        
+        // Check if cursor is above character (negative dy means cursor is higher)
+        const cursorIsAbove = dy < -30;
 
         // Handle state transitions
         if (shouldMove && wasIdleRef.current && characterState === 'idle') {
@@ -49,9 +53,10 @@ const MouseFollower = () => {
             clearTimeout(shockedTimeoutRef.current);
           }
           
-          // After 0.5 seconds, switch to running
+          // After 0.5 seconds, switch to climbing or running based on cursor position
           shockedTimeoutRef.current = setTimeout(() => {
-            setCharacterState('running');
+            // Will be determined in the next frame based on cursor position
+            setCharacterState(cursorIsAbove ? 'climbing' : 'running');
           }, 500);
         } else if (!shouldMove && characterState !== 'idle') {
           // Back to idle when stopped
@@ -61,6 +66,13 @@ const MouseFollower = () => {
           // Clear shocked timeout if we stop before it completes
           if (shockedTimeoutRef.current) {
             clearTimeout(shockedTimeoutRef.current);
+          }
+        } else if (characterState === 'climbing' || characterState === 'running') {
+          // Switch between climbing and running based on cursor position
+          if (cursorIsAbove && characterState !== 'climbing') {
+            setCharacterState('climbing');
+          } else if (!cursorIsAbove && characterState !== 'running') {
+            setCharacterState('running');
           }
         }
 
@@ -138,6 +150,20 @@ const MouseFollower = () => {
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'shocked' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+          marginTop: '8px',
+          marginLeft: '8px',
+          transform: 'scaleX(-1)',
+        }}
+      />
+      {/* Climbing character - when cursor is above */}
+      <img
+        src={characterClimb}
+        alt=""
+        className="w-8 h-8 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'climbing' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
           marginTop: '8px',
           marginLeft: '8px',
