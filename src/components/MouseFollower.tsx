@@ -134,13 +134,14 @@ const MouseFollower = () => {
       <img
         src={characterShocked}
         alt=""
-        className="w-10 h-10 object-contain absolute inset-0"
+        className="w-8 h-8 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'shocked' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
-          marginTop: '4px',
-          marginLeft: '4px',
+          marginTop: '8px',
+          marginLeft: '8px',
+          transform: 'scaleX(-1)',
         }}
       />
       {/* Running character */}
