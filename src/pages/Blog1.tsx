@@ -158,7 +158,7 @@ const Blog1 = () => {
                     Dive deeper into consumer psychology and marketing strategies.
                   </p>
                   <a 
-                    href="https://medium.com" 
+                    href="https://medium.com/@thewhylayer/why-what-comes-to-mind-first-wins-a-practical-look-at-consumer-psychology-04c3a1775186" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors hover-scale"
