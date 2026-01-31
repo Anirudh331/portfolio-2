@@ -1,7 +1,7 @@
 import profileAvatar from '@/assets/profile-avatar.png';
 import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import cursorIcon from '@/assets/cursor.webp';
-import { FileText, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 const SkillBadge = ({ children }: { children: React.ReactNode }) => (
   <span className="tech-badge">
@@ -54,13 +54,6 @@ const Hero = () => {
       </p>
 
       <div className="flex flex-wrap gap-3 mb-6">
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 px-4 py-2 border rounded-md hover:bg-muted transition-colors"
-        >
-          <FileText className="w-4 h-4" />
-          Resume / CV
-        </a>
         <a
           href="#contact"
           className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
