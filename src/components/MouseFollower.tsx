@@ -68,8 +68,8 @@ const MouseFollower = () => {
     <div
       className="fixed pointer-events-none z-40"
       style={{
-        left: position.x - 12,
-        top: position.y - 28,
+        left: position.x - 16,
+        top: position.y - 32,
         transform: `scaleX(${isFlipped ? -1 : 1})`,
         transition: 'transform 0.2s ease-out',
       }}
@@ -77,9 +77,10 @@ const MouseFollower = () => {
       <img
         src={runnerCharacter}
         alt=""
-        className={`w-6 h-6 object-contain ${isMoving ? 'animate-run' : ''}`}
+        className={`w-8 h-8 object-contain ${isMoving ? 'animate-run' : ''}`}
         style={{
           imageRendering: 'pixelated',
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
         }}
       />
     </div>
