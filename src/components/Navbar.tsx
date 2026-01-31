@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import profileAvatar from '@/assets/profile-avatar.png';
 
 const Navbar = () => {
   const [isDark, setIsDark] = useState(false);
@@ -16,9 +16,9 @@ const Navbar = () => {
         <div className="flex items-baseline gap-4">
           <a href="/" className="hover-scale will-change-transform">
             <img
-              src={logo}
+              src={profileAvatar}
               alt="Ram"
-              className="h-12 w-12 rounded-md border border-border bg-blue-300 dark:bg-yellow-300"
+              className="h-12 w-12 rounded-md border border-border"
             />
           </a>
           <nav className="flex items-baseline gap-4">

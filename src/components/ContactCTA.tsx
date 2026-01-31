@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.png';
+import profileAvatar from '@/assets/profile-avatar.png';
 
 const ContactCTA = () => {
   return (
@@ -6,7 +6,7 @@ const ContactCTA = () => {
       <div className="bg-muted rounded-xl p-6 text-center">
         <p className="text-lg mb-4">Hey, you scrolled this far, let's talk.</p>
         <div className="flex items-center justify-center gap-3 mb-4">
-          <img src={logo} alt="Ram" className="w-10 h-10 rounded-lg" />
+          <img src={profileAvatar} alt="Ram" className="w-10 h-10 rounded-lg" />
           <span className="font-medium">You</span>
         </div>
         <a

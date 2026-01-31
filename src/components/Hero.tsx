@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.png';
+import profileAvatar from '@/assets/profile-avatar.png';
 import cursorIcon from '@/assets/cursor.webp';
 import { FileText, Send } from 'lucide-react';
 
@@ -14,7 +14,7 @@ const Hero = () => {
     <section className="container mx-auto px-4 py-8 animate-fade-in">
       <div className="relative inline-block mb-6">
         <img
-          src={logo}
+          src={profileAvatar}
           alt="Ram"
           className="w-24 h-24 rounded-xl border-2 border-border"
         />

@@ -1,4 +1,4 @@
-import logo from '@/assets/logo.png';
+import profileAvatar from '@/assets/profile-avatar.png';
 
 const AboutSection = () => {
   return (
@@ -8,7 +8,7 @@ const AboutSection = () => {
 
       <div className="flex gap-4 items-start">
         <img
-          src={logo}
+          src={profileAvatar}
           alt="Ramkrishna Swarnkar"
           className="w-16 h-16 rounded-lg border"
         />
