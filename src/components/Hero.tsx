@@ -18,12 +18,12 @@ const Hero = () => {
         <div className="relative w-24 h-24">
           <img
             src={profileAvatar}
-            alt="Ram"
+            alt="Anirudh"
             className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border dark:opacity-0 transition-opacity duration-0"
           />
           <img
             src={profileAvatarDark}
-            alt="Ram"
+            alt="Anirudh"
             className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
           />
         </div>
@@ -40,7 +40,7 @@ const Hero = () => {
       </p>
 
       <h1 className="text-3xl md:text-4xl font-bold mb-4">
-        Hi, I'm Ram — <span className="text-muted-foreground">A Full Stack web developer.</span>
+        Hi, I'm Anirudh — <span className="text-muted-foreground">A Full Stack web developer.</span>
       </h1>
 
       <p className="text-base text-muted-foreground mb-6 leading-relaxed">
