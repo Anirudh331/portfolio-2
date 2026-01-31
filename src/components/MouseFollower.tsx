@@ -44,8 +44,8 @@ const MouseFollower = () => {
           return prev;
         }
 
-        // Even slower speed for smoother following
-        const speed = Math.min(distance * 0.015, 2);
+        // Slower speed for smoother following
+        const speed = Math.min(distance * 0.01, 1.5);
         const angle = Math.atan2(dy, dx);
 
         return {
@@ -86,11 +86,11 @@ const MouseFollower = () => {
           transition: 'opacity 0.15s ease-out',
         }}
       />
-      {/* Running character - shown when moving */}
+      {/* Running character - shown when moving with subtle bounce */}
       <img
         src={characterRunning}
         alt=""
-        className="w-12 h-12 object-contain"
+        className={`w-12 h-12 object-contain ${isMoving ? 'animate-walk' : ''}`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: isMoving ? 1 : 0,
