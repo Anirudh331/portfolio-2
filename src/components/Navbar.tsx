@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import profileAvatar from '@/assets/profile-avatar.png';
-import profileAvatarDark from '@/assets/profile-avatar-dark.png';
+import headerLogoDark from '@/assets/header-logo-dark.png';
 import {
   CommandDialog,
   CommandEmpty,
@@ -100,11 +100,11 @@ const Navbar = () => {
                   className="absolute inset-0 h-10 w-10 rounded-md border border-border object-cover dark:opacity-0 transition-opacity duration-0"
                 />
                 <img
-                  src={profileAvatarDark}
-                  alt="Ram"
+                  src={headerLogoDark}
+                  alt="ANR Logo"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-cover opacity-0 dark:opacity-100 transition-opacity duration-0"
+                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-contain opacity-0 dark:opacity-100 transition-opacity duration-0"
                 />
               </div>
             </a>
