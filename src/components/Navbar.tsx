@@ -91,16 +91,20 @@ const Navbar = () => {
         <div className="flex items-center justify-between px-2">
           <div className="flex items-baseline gap-4">
             <a href="/" className="hover-scale will-change-transform" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-              <div className="relative h-12 w-12">
+              <div className="relative h-10 w-10">
                 <img
                   src={profileAvatar}
                   alt="Ram"
-                  className="absolute inset-0 h-12 w-12 rounded-md border border-border dark:opacity-0 transition-opacity duration-0"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="absolute inset-0 h-10 w-10 rounded-full border border-border object-cover dark:opacity-0 transition-opacity duration-0"
                 />
                 <img
                   src={profileAvatarDark}
                   alt="Ram"
-                  className="absolute inset-0 h-12 w-12 rounded-md border border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="absolute inset-0 h-10 w-10 rounded-full border border-border object-cover opacity-0 dark:opacity-100 transition-opacity duration-0"
                 />
               </div>
             </a>
