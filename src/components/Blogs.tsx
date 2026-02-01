@@ -44,7 +44,7 @@ const blogs: BlogPost[] = [
     description: 'Lessons from watching audiences drift away — and what it means for how we explain products.',
     image: blogFilmmakingImage,
     tags: ['Storytelling', 'Product', 'Marketing'],
-    date: 'January 2026',
+    date: 'December 2025',
     link: '/blog4',
   },
 ];
