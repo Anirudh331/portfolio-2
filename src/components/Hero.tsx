@@ -43,14 +43,13 @@ const Hero = () => {
       </h1>
 
       <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-        BCom graduate. National award–winning filmmaker. Founder building education startups.
-        I work at the intersection of{' '}
+        Currently building education startups and experimenting with marketing through real projects.
+        <br /><br />
+        Interested in{' '}
         <SkillBadge>Storytelling</SkillBadge>,{' '}
-        <SkillBadge>Marketing</SkillBadge>,{' '}
-        <SkillBadge>Product</SkillBadge>
-        {' '}and{' '}
-        <SkillBadge>Media</SkillBadge>.
-        {' '}Learning marketing through real execution, not theory.
+        <SkillBadge>Graphic Design</SkillBadge>,{' '}
+        <SkillBadge>Product Thinking</SkillBadge>
+        {' '}and how attention actually works — with a background in filmmaking.
       </p>
 
       <div className="flex flex-wrap gap-3 mb-6">
