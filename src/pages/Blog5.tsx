@@ -96,13 +96,10 @@ const Blog5 = () => {
             The debate keeps coming back. But the tension only exists when you look at each in isolation.
           </p>
 
-          {/* Date & Interactions Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              <span>October 2025</span>
-            </div>
-            <BlogInteractions slug="blog5" />
+          {/* Date Row */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
+            <Calendar className="w-4 h-4" />
+            <span>October 2025</span>
           </div>
 
           {/* Content */}

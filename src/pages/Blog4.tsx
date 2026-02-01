@@ -74,13 +74,10 @@ const Blog4 = () => {
             Lessons from watching audiences drift away — and what it means for how we explain products.
           </p>
 
-          {/* Date & Interactions Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              <span>December 2025</span>
-            </div>
-            <BlogInteractions slug="blog4" />
+          {/* Date Row */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
+            <Calendar className="w-4 h-4" />
+            <span>December 2025</span>
           </div>
 
           {/* Content */}
