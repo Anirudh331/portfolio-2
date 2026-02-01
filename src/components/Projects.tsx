@@ -30,22 +30,6 @@ const projects: Project[] = [
     statusIcon: 'concept',
     link: '#',
   },
-  {
-    name: 'Award-Winning Short Films',
-    image: projectSyncify,
-    description: 'Psychological and socially grounded short films with national recognition. Stories that stay with audiences.',
-    status: 'Completed',
-    statusIcon: 'completed',
-    link: '#',
-  },
-  {
-    name: 'Marketing Experiments',
-    image: projectPasandida,
-    description: 'Ongoing tests in content, positioning, and audience building. Learning what works through real execution.',
-    status: 'Ongoing',
-    statusIcon: 'building',
-    link: '#',
-  },
 ];
 
 const StatusIcon = ({ type }: { type: string }) => {
