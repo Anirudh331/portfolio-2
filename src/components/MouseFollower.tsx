@@ -163,9 +163,13 @@ const MouseFollower = () => {
         const speed = Math.min(distance * 0.01, 1.5);
         const angle = Math.atan2(dy, dx);
 
+        // Header boundary - prevent character from going behind header (100px from top)
+        const headerHeight = 100;
+        const newY = Math.max(prev.y + Math.sin(angle) * speed, headerHeight);
+
         return {
           x: prev.x + Math.cos(angle) * speed,
-          y: prev.y + Math.sin(angle) * speed,
+          y: newY,
         };
       });
 
