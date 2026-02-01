@@ -151,8 +151,68 @@ const MouseFollower = () => {
     }
   };
 
+  // Handle state transitions based on cursor position
   useEffect(() => {
-    // Skip animation while dragging
+    if (isDragging) return;
+
+    const dx = targetPosition.x - position.x;
+    const dy = targetPosition.y - position.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const shouldMove = distance > 50;
+
+    // Determine cursor direction relative to character
+    const cursorIsStraightUp = dy < -30 && Math.abs(dx) < 30;
+    const cursorIsAbove = dy < -30 && Math.abs(dx) >= 30;
+    const cursorIsStraightDown = dy > 30 && Math.abs(dx) < 30;
+    const cursorIsBelow = dy > 30 && Math.abs(dx) >= 30;
+
+    const getMovementState = (): CharacterState => {
+      if (cursorIsStraightUp) return 'floating';
+      if (cursorIsAbove) return 'climbing';
+      if (cursorIsStraightDown) return 'falling';
+      if (cursorIsBelow) return 'descending';
+      return 'running';
+    };
+
+    if (shouldMove && wasIdleRef.current && characterState === 'idle') {
+      setCharacterState('shocked');
+      wasIdleRef.current = false;
+      
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        setCharacterState(getMovementState());
+      }, 500);
+    } else if (!shouldMove && ['running', 'climbing', 'floating', 'falling', 'descending'].includes(characterState)) {
+      setCharacterState('happy');
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        wasIdleRef.current = true;
+        setCharacterState('idle');
+      }, 500);
+    } else if (!shouldMove && characterState === 'shocked') {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setCharacterState('happy');
+      timeoutRef.current = setTimeout(() => {
+        wasIdleRef.current = true;
+        setCharacterState('idle');
+      }, 500);
+    } else if (shouldMove && characterState === 'happy') {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setCharacterState('shocked');
+      timeoutRef.current = setTimeout(() => {
+        setCharacterState(getMovementState());
+      }, 500);
+    } else if (['climbing', 'floating', 'falling', 'running', 'descending'].includes(characterState)) {
+      // Switch between movement states based on cursor position
+      const newState = getMovementState();
+      if (newState !== characterState) {
+        setCharacterState(newState);
+      }
+    }
+  }, [targetPosition, position, characterState, isDragging]);
+
+  // Animation loop for position updates only
+  useEffect(() => {
     if (isDragging) return;
 
     const animate = () => {
@@ -161,105 +221,13 @@ const MouseFollower = () => {
         const dy = targetPosition.y - prev.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Check if character should be moving
-        const shouldMove = distance > 50;
-        
-        // Check vertical direction (negative dy = cursor above, positive dy = cursor below)
-        const cursorIsStraightUp = dy < -30 && Math.abs(dx) < 30; // Cursor is directly above (90 degrees)
-        const cursorIsAbove = dy < -30 && Math.abs(dx) >= 30; // Cursor is above but at an angle
-        const cursorIsStraightDown = dy > 30 && Math.abs(dx) < 30; // Cursor is directly below (90 degrees)
-        const cursorIsBelow = dy > 30 && Math.abs(dx) >= 30; // Cursor is below but at an angle
-
-        // Handle state transitions
-        if (shouldMove && wasIdleRef.current && characterState === 'idle') {
-          // Transition from idle to shocked - character freezes in place
-          setCharacterState('shocked');
-          wasIdleRef.current = false;
-          
-          // Clear any existing timeout
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          
-          // After 0.5 seconds, switch to appropriate movement state
-          timeoutRef.current = setTimeout(() => {
-            if (cursorIsStraightUp) {
-              setCharacterState('floating');
-            } else if (cursorIsAbove) {
-              setCharacterState('climbing');
-            } else if (cursorIsStraightDown) {
-              setCharacterState('falling');
-            } else if (cursorIsBelow) {
-              setCharacterState('descending');
-            } else {
-              setCharacterState('running');
-            }
-          }, 500);
-        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'floating' || characterState === 'falling' || characterState === 'descending')) {
-          // Reached destination - show happy before idle
-          setCharacterState('happy');
-          
-          // Clear any existing timeout
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          
-          // After 0.5 seconds, go to idle
-          timeoutRef.current = setTimeout(() => {
-            wasIdleRef.current = true;
-            setCharacterState('idle');
-          }, 500);
-        } else if (!shouldMove && characterState === 'shocked') {
-          // If stopped during shocked state, go to happy then idle
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          setCharacterState('happy');
-          timeoutRef.current = setTimeout(() => {
-            wasIdleRef.current = true;
-            setCharacterState('idle');
-          }, 500);
-        } else if (shouldMove && characterState === 'happy') {
-          // If mouse moves during happy state, go back to shocked
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-          setCharacterState('shocked');
-          timeoutRef.current = setTimeout(() => {
-            if (cursorIsStraightUp) {
-              setCharacterState('floating');
-            } else if (cursorIsAbove) {
-              setCharacterState('climbing');
-            } else if (cursorIsStraightDown) {
-              setCharacterState('falling');
-            } else if (cursorIsBelow) {
-              setCharacterState('descending');
-            } else {
-              setCharacterState('running');
-            }
-          }, 500);
-        } else if (characterState === 'climbing' || characterState === 'floating' || characterState === 'falling' || characterState === 'running' || characterState === 'descending') {
-          // Switch between states based on cursor position
-          if (cursorIsStraightUp && characterState !== 'floating') {
-            setCharacterState('floating');
-          } else if (cursorIsAbove && characterState !== 'climbing') {
-            setCharacterState('climbing');
-          } else if (cursorIsStraightDown && characterState !== 'falling') {
-            setCharacterState('falling');
-          } else if (cursorIsBelow && characterState !== 'descending') {
-            setCharacterState('descending');
-          } else if (!cursorIsAbove && !cursorIsBelow && !cursorIsStraightUp && !cursorIsStraightDown && characterState !== 'running') {
-            setCharacterState('running');
-          }
-        }
-
         // Flip character based on direction
         if (Math.abs(dx) > 10) {
           setIsFlipped(dx < 0);
         }
 
-        // Don't move if in shocked or happy state - character freezes
-        if (characterState === 'shocked' || characterState === 'happy') {
+        // Don't move if in shocked, happy, or idle state
+        if (characterState === 'shocked' || characterState === 'happy' || characterState === 'idle') {
           return prev;
         }
 
@@ -274,8 +242,8 @@ const MouseFollower = () => {
           return prev;
         }
 
-        // Slower speed for smoother following
-        const speed = Math.min(distance * 0.01, 1.5);
+        // Speed based on distance for smoother following
+        const speed = Math.min(distance * 0.03, 4);
         const angle = Math.atan2(dy, dx);
 
         // Header boundary - prevent character from going behind header
