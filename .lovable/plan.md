@@ -1,26 +1,19 @@
 
+## Remove Social Links from Home Page
 
-## Remove Static Visitor Counter
+### What Will Be Removed
+The row of social media icons (X, LinkedIn, YouTube, Instagram, Email) that appears below the "Get in touch" button on the home page.
 
-The visitor counter showing "You are the 30,521st visitor" is just a hardcoded number - it's not actually tracking real visitors. I'll remove it from the footer.
-
-### What I'll Do
-
-**File: `src/components/Footer.tsx`**
-- Remove lines 12-14 containing the fake visitor count paragraph
-- The footer will keep:
-  - The Bhagavad Gita quote
-  - "Design & Built by Anirudh N Raiker"
-  - Copyright notice
+### Changes
+**File: `src/components/Hero.tsx`**
+- Remove the `<SocialLinks />` component call from the Hero section (line 66)
+- Remove the entire `SocialLinks` component definition (lines 71-94) since it won't be used anymore
 
 ### Result
-
-The footer will be cleaner without the misleading static visitor number.
+The Hero section will end with just the "Get in touch" button, providing a cleaner look without the social media links below it.
 
 ---
 
-**Note:** If you ever want a real visitor counter in the future, it would require:
-- A backend database (like Supabase) to store and increment visit counts
-- An API call on page load to record visits
-- Logic to handle unique visitors vs. total page views
-
+### Technical Details
+- Delete line 66: `<SocialLinks />`
+- Delete lines 71-94: The entire `SocialLinks` component function
