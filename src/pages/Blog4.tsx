@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
+import BlogInteractions from '@/components/BlogInteractions';
 import { ArrowLeft, Calendar, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogGoImage from '@/assets/blog-go.png';
@@ -46,10 +47,13 @@ const Blog4 = () => {
             How directing short films prepared me for building products.
           </p>
 
-          {/* Date */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8 pb-8 border-b border-border">
-            <Calendar className="w-4 h-4" />
-            <span>October 2025</span>
+          {/* Date & Interactions Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="w-4 h-4" />
+              <span>October 2025</span>
+            </div>
+            <BlogInteractions slug="blog4" />
           </div>
 
           {/* Content */}
