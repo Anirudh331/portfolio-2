@@ -6,42 +6,42 @@
 
 @layer base {
   :root {
-    /* Warm off-white background - soft cream tone */
-    --background: 40 20% 97%;
-    --foreground: 30 10% 15%;
+    /* Rich cream background */
+    --background: 38 35% 95%;
+    --foreground: 28 15% 12%;
 
-    /* Cards with subtle warmth */
-    --card: 40 15% 98%;
-    --card-foreground: 30 10% 15%;
+    /* Cards with warm cream */
+    --card: 40 30% 96%;
+    --card-foreground: 28 15% 12%;
 
-    /* Popovers slightly brighter */
-    --popover: 40 18% 99%;
-    --popover-foreground: 30 10% 15%;
+    /* Popovers - slightly lighter cream */
+    --popover: 42 32% 97%;
+    --popover-foreground: 28 15% 12%;
 
-    /* Primary - warm dark for text/buttons */
-    --primary: 30 10% 15%;
-    --primary-foreground: 40 20% 97%;
+    /* Primary - warm espresso brown */
+    --primary: 28 20% 15%;
+    --primary-foreground: 40 35% 95%;
 
-    /* Secondary - warm gray tint */
-    --secondary: 35 12% 93%;
-    --secondary-foreground: 30 10% 20%;
+    /* Secondary - warm sand */
+    --secondary: 36 25% 90%;
+    --secondary-foreground: 28 15% 18%;
 
-    /* Muted - soft warm gray */
-    --muted: 35 10% 94%;
-    --muted-foreground: 30 8% 40%;
+    /* Muted - soft cream gray */
+    --muted: 38 22% 91%;
+    --muted-foreground: 28 12% 38%;
 
-    /* Accent - keeping the blue but warmer context */
+    /* Accent - keeping the blue */
     --accent: 199 89% 48%;
     --accent-foreground: 0 0% 100%;
 
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 40 20% 97%;
+    --destructive-foreground: 40 35% 95%;
 
-    /* Borders - warm subtle */
-    --border: 35 10% 88%;
-    --input: 35 10% 88%;
-    --ring: 30 10% 15%;
+    /* Borders - warm cream */
+    --border: 36 20% 85%;
+    --input: 36 20% 85%;
+    --ring: 28 15% 12%;
 
     --radius: 0.5rem;
 
@@ -49,9 +49,9 @@
     --spotify-green: 141 76% 48%;
     --working-green: 142 71% 45%;
     
-    /* Tech badges - warm tint */
-    --tech-badge-bg: 35 12% 95%;
-    --tech-badge-border: 35 10% 88%;
+    /* Tech badges - cream tint */
+    --tech-badge-bg: 38 28% 93%;
+    --tech-badge-border: 36 20% 85%;
   }
 
   .dark {
