@@ -12,6 +12,8 @@ interface BlogPost {
   link: string;
 }
 
+import blogSeoHero from '@/assets/blog-seo-hero.png';
+
 const blogs: BlogPost[] = [
   {
     title: 'Why What Comes to Mind First Wins',
@@ -22,11 +24,11 @@ const blogs: BlogPost[] = [
     link: '/blog1',
   },
   {
-    title: 'Why most student platforms fail',
-    description: 'Observations from building in the education space',
-    image: blogGo,
-    tags: ['Product', 'Education'],
-    date: 'December 2025',
+    title: 'B2B SaaS SEO: A Compact Playbook for 2026',
+    description: 'A straight-to-the-point guide to build a repeatable SEO approach for SaaS',
+    image: blogSeoHero,
+    tags: ['SEO', 'SaaS', 'Marketing'],
+    date: 'January 2026',
     link: '/blog2',
   },
 ];
