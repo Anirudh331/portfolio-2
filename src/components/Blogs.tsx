@@ -3,6 +3,7 @@ import blogMindFirst from '@/assets/blog-mind-first.svg';
 import blogSeoHero from '@/assets/blog-seo-hero.png';
 import blogOrganicHero from '@/assets/blog-organic-hero.png';
 import blogFilmmakingImage from '@/assets/blog-filmmaking.png';
+import blogStorytellingImage from '@/assets/blog-storytelling-vs-performance.png';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
@@ -46,6 +47,14 @@ const blogs: BlogPost[] = [
     tags: ['Storytelling', 'Product', 'Marketing'],
     date: 'December 2025',
     link: '/blog4',
+  },
+  {
+    title: 'Storytelling vs Performance Marketing: A False Fight',
+    description: 'The debate keeps coming back. But the tension only exists when you look at each in isolation.',
+    image: blogStorytellingImage,
+    tags: ['Marketing', 'Strategy', 'Growth'],
+    date: 'October 2025',
+    link: '/blog5',
   },
 ];
 
