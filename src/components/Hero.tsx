@@ -62,34 +62,7 @@ const Hero = () => {
           Get in touch
         </a>
       </div>
-
-      <SocialLinks />
     </section>
-  );
-};
-
-const SocialLinks = () => {
-  const socials = [
-    { name: 'X', href: '#', icon: 'X' },
-    { name: 'LinkedIn', href: '#', icon: 'in' },
-    { name: 'YouTube', href: '#', icon: 'YT' },
-    { name: 'Instagram', href: '#', icon: 'IG' },
-    { name: 'Email', href: '#', icon: '✉' },
-  ];
-
-  return (
-    <div className="flex gap-3">
-      {socials.map((social) => (
-        <a
-          key={social.name}
-          href={social.href}
-          className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-          aria-label={social.name}
-        >
-          <span className="text-sm font-medium">{social.icon}</span>
-        </a>
-      ))}
-    </div>
   );
 };
 
