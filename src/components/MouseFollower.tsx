@@ -367,7 +367,7 @@ const MouseFollower = () => {
           className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'idle' ? 1 : 0,
+            opacity: characterState === 'idle' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
           }}
         />
@@ -375,14 +375,11 @@ const MouseFollower = () => {
         <img
           src={sprites.shocked}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'shocked' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-            marginTop: '8px',
-            marginLeft: '8px',
-            transform: 'scaleX(-1)',
           }}
         />
         {/* Grabbed character - when being dragged */}
@@ -400,13 +397,11 @@ const MouseFollower = () => {
         <img
           src={sprites.happy}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'happy' ? 1 : 0,
+            opacity: characterState === 'happy' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-            marginTop: '8px',
-            marginLeft: '8px',
           }}
         />
         {/* Floating character - when cursor is straight up (90 degrees) */}
@@ -416,7 +411,7 @@ const MouseFollower = () => {
           className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'floating' ? 1 : 0,
+            opacity: characterState === 'floating' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
           }}
         />
@@ -427,9 +422,8 @@ const MouseFollower = () => {
           className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'climbing' ? 1 : 0,
+            opacity: characterState === 'climbing' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-            transform: 'scaleX(-1)',
           }}
         />
         {/* Falling character - when cursor is straight down (90 degrees) */}
@@ -439,7 +433,7 @@ const MouseFollower = () => {
           className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'falling' ? 1 : 0,
+            opacity: characterState === 'falling' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
           }}
         />
@@ -447,24 +441,21 @@ const MouseFollower = () => {
         <img
           src={sprites.runDown}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          className="w-12 h-12 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'descending' ? 1 : 0,
+            opacity: characterState === 'descending' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-            marginTop: '8px',
-            marginLeft: '8px',
-            transform: 'scaleX(-1)',
           }}
         />
         {/* Running character - horizontal movement */}
         <img
           src={sprites.running}
           alt=""
-          className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
+          className={`w-12 h-12 object-contain absolute inset-0 ${characterState === 'running' ? 'animate-walk' : ''}`}
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'running' ? 1 : 0,
+            opacity: characterState === 'running' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
           }}
         />
