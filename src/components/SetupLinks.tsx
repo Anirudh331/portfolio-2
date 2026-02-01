@@ -1,4 +1,5 @@
 import { Monitor, Terminal, Wrench, BookOpen, Film } from 'lucide-react';
+import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 const SetupLinks = () => {
   const devSetup = [
@@ -39,15 +40,17 @@ const SetupLinks = () => {
 
   return (
     <section className="container mx-auto px-4 py-8">
-      <p className="section-label">Development</p>
-      <h2 className="section-title">Setup</h2>
+      <Reveal>
+        <p className="section-label">Development</p>
+        <h2 className="section-title">Setup</h2>
+      </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8" staggerDelay={60}>
         {devSetup.map((item) => (
           <a
             key={item.title}
             href={item.link}
-            className="flex items-start gap-3 p-4 rounded-lg border hover:bg-muted/50 transition-colors"
+            className="flex items-start gap-3 p-4 rounded-lg border card-hover"
           >
             <item.icon className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div>
@@ -56,17 +59,19 @@ const SetupLinks = () => {
             </div>
           </a>
         ))}
-      </div>
+      </StaggerContainer>
 
-      <p className="section-label">Personal</p>
-      <h2 className="section-title">Life</h2>
+      <Reveal>
+        <p className="section-label">Personal</p>
+        <h2 className="section-title">Life</h2>
+      </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-3" staggerDelay={80}>
         {personal.map((item) => (
           <a
             key={item.title}
             href={item.link}
-            className="flex items-start gap-3 p-4 rounded-lg border hover:bg-muted/50 transition-colors"
+            className="flex items-start gap-3 p-4 rounded-lg border card-hover"
           >
             <item.icon className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div>
@@ -75,7 +80,7 @@ const SetupLinks = () => {
             </div>
           </a>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 };

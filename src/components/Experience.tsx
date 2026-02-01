@@ -3,6 +3,7 @@ import companyUpsurge from '@/assets/company-upsurge.png';
 import companyPrepeasy from '@/assets/company-prepeasy.png';
 import companyExpelee from '@/assets/company-expelee.png';
 import { Globe, ExternalLink } from 'lucide-react';
+import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface ExperienceItem {
   company: string;
@@ -65,18 +66,20 @@ const experiences: ExperienceItem[] = [
 ];
 
 const SkillBadge = ({ name }: { name: string }) => (
-  <span className="tech-badge text-xs">{name}</span>
+  <span className="tech-badge badge-animate text-xs">{name}</span>
 );
 
 const Experience = () => {
   return (
     <section id="experience" className="container mx-auto px-4 py-8">
-      <p className="section-label">Featured</p>
-      <h2 className="section-title">Experience</h2>
+      <Reveal>
+        <p className="section-label">Featured</p>
+        <h2 className="section-title">Experience</h2>
+      </Reveal>
 
-      <div className="space-y-4">
+      <StaggerContainer className="space-y-4" staggerDelay={100}>
         {experiences.map((exp, index) => (
-          <div key={index} className="experience-card">
+          <div key={index} className="experience-card card-hover">
             <img
               src={exp.logo}
               alt={exp.company}
@@ -123,25 +126,27 @@ const Experience = () => {
             </div>
           </div>
         ))}
-      </div>
+      </StaggerContainer>
 
-      <div className="mt-8">
-        <p className="text-xs font-medium mb-3 text-muted-foreground">Tools & Skills</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p className="font-medium mb-2">Media & Creative</p>
-            <p className="text-muted-foreground">Video editing, Graphic design, Visual storytelling, Direction & narrative</p>
-          </div>
-          <div>
-            <p className="font-medium mb-2">Marketing & Growth</p>
-            <p className="text-muted-foreground">Meta ads, Landing pages & copy, Audience positioning, Content strategy</p>
-          </div>
-          <div>
-            <p className="font-medium mb-2">Product & Workflow</p>
-            <p className="text-muted-foreground">Office Suite, No-code tools, Analytics, Planning workflows</p>
+      <Reveal delay={400}>
+        <div className="mt-8">
+          <p className="text-xs font-medium mb-3 text-muted-foreground">Tools & Skills</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div>
+              <p className="font-medium mb-2">Media & Creative</p>
+              <p className="text-muted-foreground">Video editing, Graphic design, Visual storytelling, Direction & narrative</p>
+            </div>
+            <div>
+              <p className="font-medium mb-2">Marketing & Growth</p>
+              <p className="text-muted-foreground">Meta ads, Landing pages & copy, Audience positioning, Content strategy</p>
+            </div>
+            <div>
+              <p className="font-medium mb-2">Product & Workflow</p>
+              <p className="text-muted-foreground">Office Suite, No-code tools, Analytics, Planning workflows</p>
+            </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 };
