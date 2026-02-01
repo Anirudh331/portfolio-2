@@ -49,15 +49,12 @@ const Blog1 = () => {
             Understanding accessibility-based decision making and why it matters for your brand.
           </p>
 
-          {/* Date & Interactions Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border animate-fade-in" style={{ animationDelay: '0.25s' }}>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              <span>January 2026</span>
-              <span className="mx-2">•</span>
-              <span>5 min read</span>
-            </div>
-            <BlogInteractions slug="blog1" />
+          {/* Date Row */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8 pb-8 border-b border-border animate-fade-in" style={{ animationDelay: '0.25s' }}>
+            <Calendar className="w-4 h-4" />
+            <span>January 2026</span>
+            <span className="mx-2">•</span>
+            <span>5 min read</span>
           </div>
 
           {/* Content */}
