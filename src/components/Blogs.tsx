@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
-import blogGo from '@/assets/blog-go.png';
+import blogSeoHero from '@/assets/blog-seo-hero.png';
+import blogOrganicHero from '@/assets/blog-organic-hero.png';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
@@ -11,8 +12,6 @@ interface BlogPost {
   date: string;
   link: string;
 }
-
-import blogSeoHero from '@/assets/blog-seo-hero.png';
 
 const blogs: BlogPost[] = [
   {
@@ -30,6 +29,14 @@ const blogs: BlogPost[] = [
     tags: ['SEO', 'SaaS', 'Marketing'],
     date: 'January 2026',
     link: '/blog2',
+  },
+  {
+    title: '5 High-Leverage Organic Growth Strategies for 2026',
+    description: 'Systems that compound over time. Nothing flashy. Nothing theoretical.',
+    image: blogOrganicHero,
+    tags: ['Marketing', 'Growth', 'Strategy'],
+    date: 'January 2026',
+    link: '/blog3',
   },
 ];
 
