@@ -3,6 +3,7 @@ import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.gif';
 import characterShocked from '@/assets/character-shocked.png';
 import characterClimb from '@/assets/character-climb.gif';
+import characterFloat from '@/assets/character-float.gif';
 import characterRunDown from '@/assets/character-run-down.png';
 import characterHappy from '@/assets/character-happy.png';
 
@@ -11,7 +12,7 @@ interface Position {
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'descending' | 'happy';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'descending' | 'happy';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -42,7 +43,8 @@ const MouseFollower = () => {
         const shouldMove = distance > 50;
         
         // Check vertical direction (negative dy = cursor above, positive dy = cursor below)
-        const cursorIsAbove = dy < -30;
+        const cursorIsStraightUp = dy < -30 && Math.abs(dx) < 30; // Cursor is directly above (90 degrees)
+        const cursorIsAbove = dy < -30 && Math.abs(dx) >= 30; // Cursor is above but at an angle
         const cursorIsBelow = dy > 30;
 
         // Handle state transitions
@@ -58,7 +60,9 @@ const MouseFollower = () => {
           
           // After 0.5 seconds, switch to appropriate movement state
           timeoutRef.current = setTimeout(() => {
-            if (cursorIsAbove) {
+            if (cursorIsStraightUp) {
+              setCharacterState('floating');
+            } else if (cursorIsAbove) {
               setCharacterState('climbing');
             } else if (cursorIsBelow) {
               setCharacterState('descending');
@@ -66,7 +70,7 @@ const MouseFollower = () => {
               setCharacterState('running');
             }
           }, 500);
-        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'descending')) {
+        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'floating' || characterState === 'descending')) {
           // Reached destination - show happy before idle
           setCharacterState('happy');
           
@@ -97,7 +101,9 @@ const MouseFollower = () => {
           }
           setCharacterState('shocked');
           timeoutRef.current = setTimeout(() => {
-            if (cursorIsAbove) {
+            if (cursorIsStraightUp) {
+              setCharacterState('floating');
+            } else if (cursorIsAbove) {
               setCharacterState('climbing');
             } else if (cursorIsBelow) {
               setCharacterState('descending');
@@ -105,13 +111,15 @@ const MouseFollower = () => {
               setCharacterState('running');
             }
           }, 500);
-        } else if (characterState === 'climbing' || characterState === 'running' || characterState === 'descending') {
+        } else if (characterState === 'climbing' || characterState === 'floating' || characterState === 'running' || characterState === 'descending') {
           // Switch between states based on cursor position
-          if (cursorIsAbove && characterState !== 'climbing') {
+          if (cursorIsStraightUp && characterState !== 'floating') {
+            setCharacterState('floating');
+          } else if (cursorIsAbove && characterState !== 'climbing') {
             setCharacterState('climbing');
           } else if (cursorIsBelow && characterState !== 'descending') {
             setCharacterState('descending');
-          } else if (!cursorIsAbove && !cursorIsBelow && characterState !== 'running') {
+          } else if (!cursorIsAbove && !cursorIsBelow && !cursorIsStraightUp && characterState !== 'running') {
             setCharacterState('running');
           }
         }
@@ -121,8 +129,8 @@ const MouseFollower = () => {
           setIsFlipped(dx < 0);
         }
 
-        // Don't move if in shocked or happy state - character freezes
-        if (characterState === 'shocked' || characterState === 'happy') {
+        // Don't move if in shocked, happy, or floating state - character freezes/floats
+        if (characterState === 'shocked' || characterState === 'happy' || characterState === 'floating') {
           return prev;
         }
 
@@ -209,7 +217,18 @@ const MouseFollower = () => {
           marginLeft: '8px',
         }}
       />
-      {/* Climbing character - when cursor is above */}
+      {/* Floating character - when cursor is straight up (90 degrees) */}
+      <img
+        src={characterFloat}
+        alt=""
+        className="w-12 h-12 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'floating' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+        }}
+      />
+      {/* Climbing character - when cursor is above at an angle */}
       <img
         src={characterClimb}
         alt=""
