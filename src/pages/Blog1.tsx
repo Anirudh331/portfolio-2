@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
+import BlogInteractions from '@/components/BlogInteractions';
 import { ArrowLeft, Calendar, ExternalLink, Brain, Eye, Lightbulb, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogMindFirstImage from '@/assets/blog-mind-first.svg';
@@ -48,12 +49,15 @@ const Blog1 = () => {
             Understanding accessibility-based decision making and why it matters for your brand.
           </p>
 
-          {/* Date */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8 pb-8 border-b border-border animate-fade-in" style={{ animationDelay: '0.25s' }}>
-            <Calendar className="w-4 h-4" />
-            <span>January 2026</span>
-            <span className="mx-2">•</span>
-            <span>5 min read</span>
+          {/* Date & Interactions Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border animate-fade-in" style={{ animationDelay: '0.25s' }}>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="w-4 h-4" />
+              <span>January 2026</span>
+              <span className="mx-2">•</span>
+              <span>5 min read</span>
+            </div>
+            <BlogInteractions slug="blog1" />
           </div>
 
           {/* Content */}
