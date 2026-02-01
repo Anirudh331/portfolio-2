@@ -89,26 +89,26 @@ const Navbar = () => {
     <>
       <header className="container mx-auto sticky top-0 z-50 py-4 glass-nav">
         <div className="flex items-center justify-between px-2">
-          <div className="flex items-baseline gap-4">
-            <a href="/" className="hover-scale will-change-transform" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-              <div className="relative h-12 w-12">
+          <div className="flex items-center gap-6">
+            <a href="/" className="hover-scale will-change-transform flex-shrink-0" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
+              <div className="relative h-14 w-14">
                 <img
                   src={headerLogoLight}
                   alt="ANR Logo"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-12 w-12 object-contain dark:opacity-0 transition-opacity duration-0"
+                  className="absolute inset-0 h-14 w-14 object-contain dark:opacity-0 transition-opacity duration-0"
                 />
                 <img
                   src={headerLogoDark}
                   alt="ANR Logo"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-12 w-12 object-contain opacity-0 dark:opacity-100 transition-opacity duration-0"
+                  className="absolute inset-0 h-14 w-14 object-contain opacity-0 dark:opacity-100 transition-opacity duration-0"
                 />
               </div>
             </a>
-            <nav className="hidden sm:flex items-baseline gap-4">
+            <nav className="hidden sm:flex items-center gap-4">
               <a href="/#experience" className="nav-link" onClick={(e) => handleNavClick(e, 'experience')}>Work</a>
               <a href="/#blogs" className="nav-link" onClick={(e) => handleNavClick(e, 'blogs')}>Blogs</a>
               <a href="/#projects" className="nav-link" onClick={(e) => handleNavClick(e, 'projects')}>Projects</a>
