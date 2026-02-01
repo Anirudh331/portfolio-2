@@ -12,6 +12,7 @@ interface ExperienceItem {
   role: string;
   period: string;
   isWorking?: boolean;
+  link?: string;
 }
 
 const experiences: ExperienceItem[] = [
@@ -21,6 +22,7 @@ const experiences: ExperienceItem[] = [
     role: 'Founder · Product & Marketing',
     period: '2025 - Present',
     isWorking: true,
+    link: 'https://backlogbuddy.in',
   },
   {
     company: 'Graduate Prep Platform',
@@ -53,27 +55,32 @@ const Experience = () => {
       </Reveal>
 
       <StaggerContainer className="space-y-3" staggerDelay={100}>
-        {experiences.map((exp, index) => (
-          <div key={index} className="experience-card card-hover py-3">
-            <img
-              src={exp.logo}
-              alt={exp.company}
-              className="w-10 h-10 rounded-lg border object-cover flex-shrink-0"
-            />
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="font-semibold">{exp.company}</h3>
-                {exp.isWorking && (
-                  <span className="status-working">Active</span>
-                )}
+        {experiences.map((exp, index) => {
+          const CardWrapper = exp.link ? 'a' : 'div';
+          const cardProps = exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {};
+          
+          return (
+            <CardWrapper key={index} {...cardProps} className="experience-card card-hover py-3">
+              <img
+                src={exp.logo}
+                alt={exp.company}
+                className="w-10 h-10 rounded-lg border object-cover flex-shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-semibold">{exp.company}</h3>
+                  {exp.isWorking && (
+                    <span className="status-working">Active</span>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground">{exp.role}</p>
               </div>
-              <p className="text-sm text-muted-foreground">{exp.role}</p>
-            </div>
-            <div className="text-right text-sm text-muted-foreground flex-shrink-0">
-              <p>{exp.period}</p>
-            </div>
-          </div>
-        ))}
+              <div className="text-right text-sm text-muted-foreground flex-shrink-0">
+                <p>{exp.period}</p>
+              </div>
+            </CardWrapper>
+          );
+        })}
       </StaggerContainer>
 
       <Reveal delay={300}>
