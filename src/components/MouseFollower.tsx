@@ -159,13 +159,19 @@ const MouseFollower = () => {
           return prev;
         }
 
+        // If target is in header zone, don't move towards it
+        const headerHeight = 120;
+        if (targetPosition.y < headerHeight && prev.y <= headerHeight + 10) {
+          return prev;
+        }
+
         // Slower speed for smoother following
         const speed = Math.min(distance * 0.01, 1.5);
         const angle = Math.atan2(dy, dx);
 
-        // Header boundary - prevent character from going behind header (100px from top)
-        const headerHeight = 100;
-        const newY = Math.max(prev.y + Math.sin(angle) * speed, headerHeight);
+        // Header boundary - prevent character from going behind header
+        const calculatedY = prev.y + Math.sin(angle) * speed;
+        const newY = Math.max(calculatedY, headerHeight);
 
         return {
           x: prev.x + Math.cos(angle) * speed,
