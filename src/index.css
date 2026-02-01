@@ -203,6 +203,121 @@
 }
 
 @layer utilities {
+  /* ===== Scroll Reveal System ===== */
+  .reveal-element {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 
+      opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal-element.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Subtle emphasis animation for titles */
+  .reveal-title {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 
+      opacity 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal-title.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Softer reveal for paragraphs */
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: 
+      opacity 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal-text.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Micro-interactions ===== */
+  
+  /* Link underline animation */
+  .link-animate {
+    @apply relative;
+  }
+
+  .link-animate::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-current;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .link-animate:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Card hover with subtle lift */
+  .card-hover {
+    transition: 
+      transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px -12px hsl(var(--foreground) / 0.15);
+  }
+
+  /* Button micro-interaction */
+  .btn-animate {
+    transition: 
+      transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      opacity 200ms ease;
+  }
+
+  .btn-animate:hover {
+    transform: scale(1.02);
+  }
+
+  .btn-animate:active {
+    transform: scale(0.98);
+  }
+
+  /* Badge subtle hover */
+  .badge-animate {
+    transition: 
+      transform 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      background-color 250ms ease;
+  }
+
+  .badge-animate:hover {
+    transform: scale(1.03);
+  }
+
+  /* Image reveal with subtle scale */
+  .img-reveal {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: 
+      opacity 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .img-reveal.revealed {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ===== Legacy animations ===== */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out;
   }
@@ -303,5 +418,28 @@
   .pixelated {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-element,
+    .reveal-title,
+    .reveal-text,
+    .img-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .card-hover:hover,
+    .btn-animate:hover,
+    .btn-animate:active,
+    .badge-animate:hover {
+      transform: none;
+    }
+
+    .link-animate::after {
+      transition: none;
+    }
   }
 }

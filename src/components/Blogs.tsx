@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
 import blogGo from '@/assets/blog-go.png';
+import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
   title: string;
@@ -31,7 +32,7 @@ const blogs: BlogPost[] = [
 ];
 
 const BlogCard = ({ blog }: { blog: BlogPost }) => (
-  <Link to={blog.link} className="project-card block">
+  <Link to={blog.link} className="project-card card-hover block">
     <div className="aspect-video overflow-hidden">
       <img
         src={blog.image}
@@ -46,7 +47,7 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
         {blog.tags.map((tag) => (
           <span
             key={tag}
-            className="px-2 py-0.5 text-xs bg-muted rounded-full"
+            className="px-2 py-0.5 text-xs bg-muted rounded-full badge-animate"
           >
             {tag}
           </span>
@@ -54,7 +55,7 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
       </div>
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>{blog.date}</span>
-        <span className="hover:text-foreground transition-colors">Read More</span>
+        <span className="hover:text-foreground transition-colors link-animate">Read More</span>
       </div>
     </div>
   </Link>
@@ -63,21 +64,25 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
 const Blogs = () => {
   return (
     <section id="blogs" className="container mx-auto px-4 py-8">
-      <p className="section-label">Writing</p>
-      <h2 className="section-title">Thoughts</h2>
+      <Reveal>
+        <p className="section-label">Writing</p>
+        <h2 className="section-title">Thoughts</h2>
+      </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4" staggerDelay={100}>
         {blogs.map((blog) => (
           <BlogCard key={blog.title} blog={blog} />
         ))}
-      </div>
+      </StaggerContainer>
 
-      <Link
-        to="/blog"
-        className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
-      >
-        View all writing
-      </Link>
+      <Reveal delay={200}>
+        <Link
+          to="/blog"
+          className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors link-animate"
+        >
+          View all writing
+        </Link>
+      </Reveal>
     </section>
   );
 };

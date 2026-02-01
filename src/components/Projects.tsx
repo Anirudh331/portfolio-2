@@ -3,6 +3,7 @@ import projectAppwrite from '@/assets/project-appwrite.png';
 import projectSyncify from '@/assets/project-syncify.png';
 import projectPasandida from '@/assets/project-pasandida.png';
 import { Rocket, Film, BookOpen } from 'lucide-react';
+import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface Project {
   name: string;
@@ -46,7 +47,7 @@ const StatusIcon = ({ type }: { type: string }) => {
 };
 
 const ProjectCard = ({ project }: { project: Project }) => (
-  <a href={project.link} className="project-card block">
+  <a href={project.link} className="project-card card-hover block">
     <div className="aspect-video overflow-hidden">
       <img
         src={project.image}
@@ -64,7 +65,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
           <StatusIcon type={project.statusIcon} />
           <span className="text-muted-foreground">{project.status}</span>
         </div>
-        <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <span className="text-sm text-muted-foreground hover:text-foreground transition-colors link-animate">
           Learn More
         </span>
       </div>
@@ -75,21 +76,25 @@ const ProjectCard = ({ project }: { project: Project }) => (
 const Projects = () => {
   return (
     <section id="projects" className="container mx-auto px-4 py-8">
-      <p className="section-label">Featured</p>
-      <h2 className="section-title">Projects</h2>
+      <Reveal>
+        <p className="section-label">Featured</p>
+        <h2 className="section-title">Projects</h2>
+      </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4" staggerDelay={100}>
         {projects.map((project) => (
           <ProjectCard key={project.name} project={project} />
         ))}
-      </div>
+      </StaggerContainer>
 
-      <a
-        href="#"
-        className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
-      >
-        View all work
-      </a>
+      <Reveal delay={200}>
+        <a
+          href="#"
+          className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors link-animate"
+        >
+          View all work
+        </a>
+      </Reveal>
     </section>
   );
 };
