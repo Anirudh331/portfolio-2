@@ -3,8 +3,10 @@ import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
-import blogTaste from '@/assets/blog-taste.png';
-import blogGo from '@/assets/blog-go.png';
+import blogSeoHero from '@/assets/blog-seo-hero.png';
+import blogOrganicHero from '@/assets/blog-organic-hero.png';
+import blogFilmmakingImage from '@/assets/blog-filmmaking.png';
+import blogStorytellingImage from '@/assets/blog-storytelling-vs-performance.png';
 
 interface BlogPost {
   title: string;
@@ -25,35 +27,35 @@ const blogs: BlogPost[] = [
     link: '/blog1',
   },
   {
-    title: 'Why most student platforms fail',
-    description: 'Observations from building in the education space',
-    image: blogGo,
-    tags: ['Product', 'Education'],
-    date: 'December 2025',
+    title: 'B2B SaaS SEO: A Compact Playbook for 2026',
+    description: 'A straight-to-the-point guide to build a repeatable SEO approach for SaaS',
+    image: blogSeoHero,
+    tags: ['SEO', 'SaaS', 'Marketing'],
+    date: 'January 2026',
     link: '/blog2',
   },
   {
-    title: 'Building before being ready',
-    description: 'Why waiting for the perfect moment is the biggest trap',
-    image: blogTaste,
-    tags: ['Mindset', 'Startups'],
-    date: 'November 2025',
+    title: '5 High-Leverage Organic Growth Strategies for 2026',
+    description: 'Systems that compound over time. Nothing flashy. Nothing theoretical.',
+    image: blogOrganicHero,
+    tags: ['Marketing', 'Growth', 'Strategy'],
+    date: 'January 2026',
     link: '/blog3',
   },
   {
-    title: 'From filmmaker to founder',
-    description: 'What I learned about clarity from making short films',
-    image: blogGo,
-    tags: ['Journey', 'Media'],
-    date: 'October 2025',
+    title: 'What Filmmaking Taught Me About Product Storytelling',
+    description: 'Lessons from watching audiences drift away — and what it means for how we explain products.',
+    image: blogFilmmakingImage,
+    tags: ['Storytelling', 'Product', 'Marketing'],
+    date: 'December 2025',
     link: '/blog4',
   },
   {
-    title: 'Learning marketing by doing',
-    description: 'Real experiments over theoretical frameworks',
-    image: blogTaste,
-    tags: ['Marketing', 'Growth'],
-    date: 'September 2025',
+    title: 'Storytelling vs Performance Marketing: A False Fight',
+    description: 'The debate keeps coming back. But the tension only exists when you look at each in isolation.',
+    image: blogStorytellingImage,
+    tags: ['Marketing', 'Strategy', 'Growth'],
+    date: 'October 2025',
     link: '/blog5',
   },
 ];
