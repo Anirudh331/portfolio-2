@@ -351,9 +351,9 @@ const MouseFollower = () => {
         className="fixed pointer-events-auto z-40"
         style={{
           left: position.x - 24,
-          top: position.y - 48,
+          top: isDragging ? position.y + 10 : position.y - 48,
           transform: `scaleX(${isFlipped ? -1 : 1}) scale(${isDragging ? 1.15 : 1})`,
-          transition: isDragging ? 'transform 0.15s ease-out' : 'transform 0.2s ease-out',
+          transition: isDragging ? 'transform 0.15s ease-out' : 'transform 0.2s ease-out, top 0.15s ease-out',
           cursor: isDragging ? 'grabbing' : isHovering ? 'grab' : 'pointer',
         }}
         onMouseEnter={() => setIsHovering(true)}
