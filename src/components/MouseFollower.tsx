@@ -213,14 +213,11 @@ const MouseFollower = () => {
       <img
         src={characterClimb}
         alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
+        className="w-12 h-12 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'climbing' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
-          transform: 'scaleX(-1)',
         }}
       />
       {/* Descending character - when cursor is below */}
