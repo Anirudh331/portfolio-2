@@ -4,6 +4,7 @@ import characterRunning from '@/assets/character-running.gif';
 import characterShocked from '@/assets/character-shocked.png';
 import characterClimb from '@/assets/character-climb.gif';
 import characterFloat from '@/assets/character-float.gif';
+import characterFall from '@/assets/character-fall.gif';
 import characterRunDown from '@/assets/character-run-down.png';
 import characterHappy from '@/assets/character-happy.png';
 
@@ -12,7 +13,7 @@ interface Position {
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'descending' | 'happy';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'falling' | 'descending' | 'happy';
 
 const MouseFollower = () => {
   const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
@@ -45,7 +46,8 @@ const MouseFollower = () => {
         // Check vertical direction (negative dy = cursor above, positive dy = cursor below)
         const cursorIsStraightUp = dy < -30 && Math.abs(dx) < 30; // Cursor is directly above (90 degrees)
         const cursorIsAbove = dy < -30 && Math.abs(dx) >= 30; // Cursor is above but at an angle
-        const cursorIsBelow = dy > 30;
+        const cursorIsStraightDown = dy > 30 && Math.abs(dx) < 30; // Cursor is directly below (90 degrees)
+        const cursorIsBelow = dy > 30 && Math.abs(dx) >= 30; // Cursor is below but at an angle
 
         // Handle state transitions
         if (shouldMove && wasIdleRef.current && characterState === 'idle') {
@@ -64,13 +66,15 @@ const MouseFollower = () => {
               setCharacterState('floating');
             } else if (cursorIsAbove) {
               setCharacterState('climbing');
+            } else if (cursorIsStraightDown) {
+              setCharacterState('falling');
             } else if (cursorIsBelow) {
               setCharacterState('descending');
             } else {
               setCharacterState('running');
             }
           }, 500);
-        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'floating' || characterState === 'descending')) {
+        } else if (!shouldMove && (characterState === 'running' || characterState === 'climbing' || characterState === 'floating' || characterState === 'falling' || characterState === 'descending')) {
           // Reached destination - show happy before idle
           setCharacterState('happy');
           
@@ -105,21 +109,25 @@ const MouseFollower = () => {
               setCharacterState('floating');
             } else if (cursorIsAbove) {
               setCharacterState('climbing');
+            } else if (cursorIsStraightDown) {
+              setCharacterState('falling');
             } else if (cursorIsBelow) {
               setCharacterState('descending');
             } else {
               setCharacterState('running');
             }
           }, 500);
-        } else if (characterState === 'climbing' || characterState === 'floating' || characterState === 'running' || characterState === 'descending') {
+        } else if (characterState === 'climbing' || characterState === 'floating' || characterState === 'falling' || characterState === 'running' || characterState === 'descending') {
           // Switch between states based on cursor position
           if (cursorIsStraightUp && characterState !== 'floating') {
             setCharacterState('floating');
           } else if (cursorIsAbove && characterState !== 'climbing') {
             setCharacterState('climbing');
+          } else if (cursorIsStraightDown && characterState !== 'falling') {
+            setCharacterState('falling');
           } else if (cursorIsBelow && characterState !== 'descending') {
             setCharacterState('descending');
-          } else if (!cursorIsAbove && !cursorIsBelow && !cursorIsStraightUp && characterState !== 'running') {
+          } else if (!cursorIsAbove && !cursorIsBelow && !cursorIsStraightUp && !cursorIsStraightDown && characterState !== 'running') {
             setCharacterState('running');
           }
         }
@@ -240,7 +248,18 @@ const MouseFollower = () => {
           transform: 'scaleX(-1)',
         }}
       />
-      {/* Descending character - when cursor is below */}
+      {/* Falling character - when cursor is straight down (90 degrees) */}
+      <img
+        src={characterFall}
+        alt=""
+        className="w-12 h-12 object-contain absolute inset-0"
+        style={{
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+          opacity: characterState === 'falling' ? 1 : 0,
+          transition: 'opacity 0.15s ease-out',
+        }}
+      />
+      {/* Descending character - when cursor is below at an angle */}
       <img
         src={characterRunDown}
         alt=""
