@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heart, Eye, Share2, MessageCircle } from 'lucide-react';
+import { Heart, Share2 } from 'lucide-react';
 import { supabase, BlogStats } from '@/lib/supabase';
 import confetti from 'canvas-confetti';
 import { cn } from '@/lib/utils';
@@ -7,40 +7,71 @@ import { cn } from '@/lib/utils';
 interface BlogInteractionsProps {
   slug: string;
   className?: string;
+  variant?: 'inline' | 'bottom';
 }
 
 const STORAGE_KEY = 'blog_user_likes';
-const MAX_LIKES = 5;
+const STORAGE_KEY_CLAPS = 'blog_user_claps';
+const MAX_REACTIONS = 50;
 
-const getStoredLikes = (): Record<string, number> => {
+const getStoredReactions = (key: string): Record<string, number> => {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : {};
   } catch {
     return {};
   }
 };
 
-const setStoredLikes = (likes: Record<string, number>) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(likes));
+const setStoredReactions = (key: string, reactions: Record<string, number>) => {
+  localStorage.setItem(key, JSON.stringify(reactions));
 };
 
-const triggerConfetti = () => {
+const triggerConfetti = (intensity: 'low' | 'high' = 'low') => {
+  const config = intensity === 'high' 
+    ? { particleCount: 150, spread: 100, origin: { y: 0.6 } }
+    : { particleCount: 30, spread: 50, origin: { y: 0.7 } };
+  
   confetti({
-    particleCount: 80,
-    spread: 60,
-    origin: { y: 0.7 },
+    ...config,
     colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
   });
 };
 
-const BlogInteractions = ({ slug, className }: BlogInteractionsProps) => {
+const triggerMaxConfetti = () => {
+  const duration = 2000;
+  const end = Date.now() + duration;
+
+  const frame = () => {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+      colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+      colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  };
+  frame();
+};
+
+const BlogInteractions = ({ slug, className, variant = 'inline' }: BlogInteractionsProps) => {
   const [stats, setStats] = useState<BlogStats | null>(null);
   const [userLikes, setUserLikes] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [hasViewed, setHasViewed] = useState(false);
+  const [userClaps, setUserClaps] = useState(0);
+  const [isLikeAnimating, setIsLikeAnimating] = useState(false);
+  const [isClapAnimating, setIsClapAnimating] = useState(false);
 
-  // Fetch stats and track view
   useEffect(() => {
     const fetchStats = async () => {
       const { data, error } = await supabase
@@ -50,61 +81,82 @@ const BlogInteractions = ({ slug, className }: BlogInteractionsProps) => {
         .single();
 
       if (error && error.code === 'PGRST116') {
-        // Row doesn't exist, create it
         const { data: newData } = await supabase
           .from('blog_stats')
-          .insert({ slug, likes: 0, views: 1 })
+          .insert({ slug, likes: 0, views: 0 })
           .select()
           .single();
         
         if (newData) setStats(newData);
       } else if (data) {
         setStats(data);
-        
-        // Increment view count (once per session)
-        const viewedKey = `viewed_${slug}`;
-        if (!sessionStorage.getItem(viewedKey)) {
-          sessionStorage.setItem(viewedKey, 'true');
-          await supabase
-            .from('blog_stats')
-            .update({ views: data.views + 1 })
-            .eq('slug', slug);
-          setStats(prev => prev ? { ...prev, views: prev.views + 1 } : null);
-        }
-        setHasViewed(true);
       }
     };
 
     fetchStats();
 
-    // Get user's stored likes for this post
-    const storedLikes = getStoredLikes();
+    const storedLikes = getStoredReactions(STORAGE_KEY);
+    const storedClaps = getStoredReactions(STORAGE_KEY_CLAPS);
     setUserLikes(storedLikes[slug] || 0);
+    setUserClaps(storedClaps[slug] || 0);
   }, [slug]);
 
   const handleLike = async () => {
-    if (userLikes >= MAX_LIKES || !stats) return;
+    if (userLikes >= MAX_REACTIONS || !stats) return;
 
-    setIsAnimating(true);
-    triggerConfetti();
-
-    // Update local state
     const newUserLikes = userLikes + 1;
+    const wasAtMax = newUserLikes === MAX_REACTIONS;
+    
+    setIsLikeAnimating(true);
+    
+    if (wasAtMax) {
+      triggerMaxConfetti();
+    } else {
+      triggerConfetti(newUserLikes % 10 === 0 ? 'high' : 'low');
+    }
+
     setUserLikes(newUserLikes);
     setStats(prev => prev ? { ...prev, likes: prev.likes + 1 } : null);
 
-    // Store in localStorage
-    const storedLikes = getStoredLikes();
+    const storedLikes = getStoredReactions(STORAGE_KEY);
     storedLikes[slug] = newUserLikes;
-    setStoredLikes(storedLikes);
+    setStoredReactions(STORAGE_KEY, storedLikes);
 
-    // Update database
     await supabase
       .from('blog_stats')
       .update({ likes: stats.likes + 1 })
       .eq('slug', slug);
 
-    setTimeout(() => setIsAnimating(false), 300);
+    setTimeout(() => setIsLikeAnimating(false), 150);
+  };
+
+  const handleClap = async () => {
+    if (userClaps >= MAX_REACTIONS || !stats) return;
+
+    const newUserClaps = userClaps + 1;
+    const wasAtMax = newUserClaps === MAX_REACTIONS;
+    
+    setIsClapAnimating(true);
+    
+    if (wasAtMax) {
+      triggerMaxConfetti();
+    } else {
+      triggerConfetti(newUserClaps % 10 === 0 ? 'high' : 'low');
+    }
+
+    setUserClaps(newUserClaps);
+    setStats(prev => prev ? { ...prev, views: prev.views + 1 } : null);
+
+    const storedClaps = getStoredReactions(STORAGE_KEY_CLAPS);
+    storedClaps[slug] = newUserClaps;
+    setStoredReactions(STORAGE_KEY_CLAPS, storedClaps);
+
+    await supabase
+      .from('blog_stats')
+      .update({ views: stats.views + 1 })
+      .eq('slug', slug);
+
+    setTimeout(() => setIsClapAnimating(false), 150);
   };
 
   const handleShare = async () => {
@@ -115,11 +167,10 @@ const BlogInteractions = ({ slug, className }: BlogInteractionsProps) => {
       try {
         await navigator.share({ title, url });
       } catch {
-        // User cancelled or error
+        // User cancelled
       }
     } else {
       await navigator.clipboard.writeText(url);
-      // Could add a toast notification here
     }
   };
 
@@ -130,27 +181,96 @@ const BlogInteractions = ({ slug, className }: BlogInteractionsProps) => {
     return num.toString();
   };
 
+  if (variant === 'bottom') {
+    return (
+      <div className={cn("flex flex-col items-center gap-6 py-12", className)}>
+        <p className="text-muted-foreground text-center">
+          If you liked this blog, give it a reaction!
+        </p>
+        
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleLike}
+            disabled={userLikes >= MAX_REACTIONS}
+            className={cn(
+              "flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-200",
+              "hover:bg-muted/50 hover:border-primary/30 hover:scale-105",
+              userLikes >= MAX_REACTIONS 
+                ? "opacity-60 cursor-not-allowed border-primary/50 bg-primary/5" 
+                : "cursor-pointer active:scale-95",
+              isLikeAnimating && "scale-110"
+            )}
+          >
+            <Heart
+              className={cn(
+                "w-8 h-8 transition-all duration-200",
+                userLikes > 0 ? "fill-red-500 text-red-500" : "text-muted-foreground",
+                isLikeAnimating && "scale-125"
+              )}
+            />
+            <span className="text-lg font-semibold">
+              {stats ? formatNumber(stats.likes) : '—'}
+            </span>
+          </button>
+
+          <button
+            onClick={handleClap}
+            disabled={userClaps >= MAX_REACTIONS}
+            className={cn(
+              "flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-200",
+              "hover:bg-muted/50 hover:border-primary/30 hover:scale-105",
+              userClaps >= MAX_REACTIONS 
+                ? "opacity-60 cursor-not-allowed border-primary/50 bg-primary/5" 
+                : "cursor-pointer active:scale-95",
+              isClapAnimating && "scale-110"
+            )}
+          >
+            <span className={cn(
+              "text-3xl transition-all duration-200",
+              isClapAnimating && "scale-125"
+            )}>
+              👏
+            </span>
+            <span className="text-lg font-semibold">
+              {stats ? formatNumber(stats.views) : '—'}
+            </span>
+          </button>
+        </div>
+
+        {(userLikes > 0 || userClaps > 0) && (userLikes < MAX_REACTIONS || userClaps < MAX_REACTIONS) && (
+          <p className="text-xs text-muted-foreground">
+            {MAX_REACTIONS - Math.max(userLikes, userClaps)} reactions left
+          </p>
+        )}
+
+        {(userLikes >= MAX_REACTIONS || userClaps >= MAX_REACTIONS) && (
+          <p className="text-xs text-primary font-medium">
+            Thanks for all the love! 🎉
+          </p>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className={cn("flex items-center gap-3 flex-wrap", className)}>
-      {/* Like Button */}
+    <div className={cn("flex items-center gap-2 flex-wrap", className)}>
       <button
         onClick={handleLike}
-        disabled={userLikes >= MAX_LIKES}
+        disabled={userLikes >= MAX_REACTIONS}
         className={cn(
-          "flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-200",
+          "flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200",
           "hover:bg-muted/50 hover:border-primary/30",
-          userLikes >= MAX_LIKES 
+          userLikes >= MAX_REACTIONS 
             ? "opacity-60 cursor-not-allowed" 
             : "cursor-pointer active:scale-95",
-          isAnimating && "scale-110"
+          isLikeAnimating && "scale-105"
         )}
-        title={userLikes >= MAX_LIKES ? "You've reached max likes!" : `Like (${userLikes}/${MAX_LIKES} used)`}
       >
         <Heart
           className={cn(
             "w-4 h-4 transition-all duration-200",
             userLikes > 0 ? "fill-red-500 text-red-500" : "text-muted-foreground",
-            isAnimating && "scale-125"
+            isLikeAnimating && "scale-110"
           )}
         />
         <span className="text-sm font-medium">
@@ -158,35 +278,31 @@ const BlogInteractions = ({ slug, className }: BlogInteractionsProps) => {
         </span>
       </button>
 
-      {/* Views */}
-      <div className="flex items-center gap-2 px-4 py-2 rounded-full border bg-muted/30">
-        <Eye className="w-4 h-4 text-muted-foreground" />
+      <button
+        onClick={handleClap}
+        disabled={userClaps >= MAX_REACTIONS}
+        className={cn(
+          "flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200",
+          "hover:bg-muted/50 hover:border-primary/30",
+          userClaps >= MAX_REACTIONS 
+            ? "opacity-60 cursor-not-allowed" 
+            : "cursor-pointer active:scale-95",
+          isClapAnimating && "scale-105"
+        )}
+      >
+        <span className="text-sm">👏</span>
         <span className="text-sm font-medium">
           {stats ? formatNumber(stats.views) : '—'}
         </span>
-      </div>
+      </button>
 
-      {/* Comments (placeholder for future) */}
-      <div className="flex items-center gap-2 px-4 py-2 rounded-full border bg-muted/30">
-        <MessageCircle className="w-4 h-4 text-muted-foreground" />
-        <span className="text-sm font-medium">0</span>
-      </div>
-
-      {/* Share Button */}
       <button
         onClick={handleShare}
-        className="flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-200 hover:bg-muted/50 hover:border-primary/30 active:scale-95"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 hover:bg-muted/50 hover:border-primary/30 active:scale-95"
       >
         <Share2 className="w-4 h-4 text-muted-foreground" />
         <span className="text-sm font-medium">Share</span>
       </button>
-
-      {/* Like progress indicator */}
-      {userLikes > 0 && userLikes < MAX_LIKES && (
-        <span className="text-xs text-muted-foreground ml-2">
-          {MAX_LIKES - userLikes} likes left
-        </span>
-      )}
     </div>
   );
 };
