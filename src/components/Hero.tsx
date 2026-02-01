@@ -62,6 +62,25 @@ const Hero = () => {
           Get in touch
         </a>
       </div>
+
+      <div className="flex gap-3">
+        <a
+          href="https://www.linkedin.com/in/anirudhnraikar/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="LinkedIn"
+        >
+          <span className="text-sm font-medium">in</span>
+        </a>
+        <a
+          href="mailto:anirudh@anirudhworks.site"
+          className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Email"
+        >
+          <span className="text-sm font-medium">✉</span>
+        </a>
+      </div>
     </section>
   );
 };
