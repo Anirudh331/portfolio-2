@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MouseFollower from '@/components/MouseFollower';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
-import { Globe, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 import companyPromote from '@/assets/company-promote.png';
 import companyUpsurge from '@/assets/company-upsurge.png';
@@ -18,6 +18,7 @@ interface ExperienceItem {
   isWorking?: boolean;
   skills?: string[];
   description?: string[];
+  link?: string;
 }
 
 const experiences: ExperienceItem[] = [
@@ -33,6 +34,7 @@ const experiences: ExperienceItem[] = [
       'Building an education platform for university students with academic backlogs. Handling product concept, positioning, and end-to-end execution.',
       'Responsible for website structure, content flow, branding, naming, and running marketing experiments to drive traffic.',
     ],
+    link: 'https://backlogbuddy.in',
   },
   {
     company: 'Graduate Prep Platform',
@@ -98,11 +100,19 @@ const WorkExperience = () => {
               />
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-lg">{exp.company}</h3>
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-muted-foreground" />
-                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                  </div>
+                  {exp.link ? (
+                    <a 
+                      href={exp.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="font-semibold text-lg hover:text-primary transition-colors flex items-center gap-2"
+                    >
+                      {exp.company}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <h3 className="font-semibold text-lg">{exp.company}</h3>
+                  )}
                   {exp.isWorking && (
                     <span className="status-working">Active</span>
                   )}
