@@ -1,4 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+
+// AniBot sprites
 import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.gif';
 import characterShocked from '@/assets/character-shocked.png';
@@ -14,6 +23,43 @@ interface Position {
 }
 
 type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'falling' | 'descending' | 'happy';
+type CharacterType = 'anibot' | 'loki';
+
+interface CharacterSprites {
+  idle: string;
+  running: string;
+  shocked: string;
+  climb: string;
+  float: string;
+  fall: string;
+  runDown: string;
+  happy: string;
+}
+
+// Character sprite configurations
+const CHARACTER_SPRITES: Record<CharacterType, CharacterSprites> = {
+  anibot: {
+    idle: characterIdle,
+    running: characterRunning,
+    shocked: characterShocked,
+    climb: characterClimb,
+    float: characterFloat,
+    fall: characterFall,
+    runDown: characterRunDown,
+    happy: characterHappy,
+  },
+  loki: {
+    // For now, Loki uses same sprites - user can add custom sprites later
+    idle: characterIdle,
+    running: characterRunning,
+    shocked: characterShocked,
+    climb: characterClimb,
+    float: characterFloat,
+    fall: characterFall,
+    runDown: characterRunDown,
+    happy: characterHappy,
+  },
+};
 
 const MouseFollower = () => {
   // Start character lower on the page (visible below hero section)
@@ -22,9 +68,14 @@ const MouseFollower = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState<CharacterType>('anibot');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const animationRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
   const wasIdleRef = useRef(true);
+  const characterRef = useRef<HTMLDivElement>(null);
+
+  const sprites = CHARACTER_SPRITES[selectedCharacter];
 
   // Detect mobile/touch devices
   useEffect(() => {
@@ -34,6 +85,28 @@ const MouseFollower = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Handle right-click on character
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      if (characterRef.current) {
+        const rect = characterRef.current.getBoundingClientRect();
+        const isInsideCharacter =
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom;
+
+        if (isInsideCharacter) {
+          e.preventDefault();
+          setIsDialogOpen(true);
+        }
+      }
+    };
+
+    window.addEventListener('contextmenu', handleContextMenu);
+    return () => window.removeEventListener('contextmenu', handleContextMenu);
   }, []);
 
   useEffect(() => {
@@ -199,119 +272,153 @@ const MouseFollower = () => {
     };
   }, []);
 
+  const handleCharacterSelect = (character: CharacterType) => {
+    setSelectedCharacter(character);
+    setIsDialogOpen(false);
+  };
+
   // Hide on mobile - mouse following doesn't work on touch devices
   if (isMobile) {
     return null;
   }
 
   return (
-    <div
-      className="fixed pointer-events-none z-40"
-      style={{
-        left: position.x - 24,
-        top: position.y - 48,
-        transform: `scaleX(${isFlipped ? -1 : 1})`,
-        transition: 'transform 0.2s ease-out',
-      }}
-    >
-      {/* Idle character */}
-      <img
-        src={characterIdle}
-        alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+    <>
+      {/* Character Selection Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl">Choose</DialogTitle>
+          </DialogHeader>
+          <div className="flex gap-4 justify-center py-4">
+            <Button
+              variant={selectedCharacter === 'anibot' ? 'default' : 'outline'}
+              onClick={() => handleCharacterSelect('anibot')}
+              className="flex-1 h-16 text-lg font-semibold"
+            >
+              AniBot
+            </Button>
+            <Button
+              variant={selectedCharacter === 'loki' ? 'default' : 'outline'}
+              onClick={() => handleCharacterSelect('loki')}
+              className="flex-1 h-16 text-lg font-semibold"
+            >
+              Loki
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Character */}
+      <div
+        ref={characterRef}
+        className="fixed pointer-events-auto z-40 cursor-pointer"
         style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'idle' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
+          left: position.x - 24,
+          top: position.y - 48,
+          transform: `scaleX(${isFlipped ? -1 : 1})`,
+          transition: 'transform 0.2s ease-out',
         }}
-      />
-      {/* Shocked character - freezes for 0.5s when mouse first moves */}
-      <img
-        src={characterShocked}
-        alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'shocked' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
-          transform: 'scaleX(-1)',
-        }}
-      />
-      {/* Happy character - shows for 0.5s when reaching destination */}
-      <img
-        src={characterHappy}
-        alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'happy' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
-        }}
-      />
-      {/* Floating character - when cursor is straight up (90 degrees) */}
-      <img
-        src={characterFloat}
-        alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'floating' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-        }}
-      />
-      {/* Climbing character - when cursor is above at an angle */}
-      <img
-        src={characterClimb}
-        alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'climbing' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-          transform: 'scaleX(-1)',
-        }}
-      />
-      {/* Falling character - when cursor is straight down (90 degrees) */}
-      <img
-        src={characterFall}
-        alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'falling' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-        }}
-      />
-      {/* Descending character - when cursor is below at an angle */}
-      <img
-        src={characterRunDown}
-        alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'descending' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
-          transform: 'scaleX(-1)',
-        }}
-      />
-      {/* Running character - horizontal movement */}
-      <img
-        src={characterRunning}
-        alt=""
-        className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
-        style={{
-          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-          opacity: characterState === 'running' ? 1 : 0,
-          transition: 'opacity 0.15s ease-out',
-        }}
-      />
-    </div>
+      >
+        {/* Idle character */}
+        <img
+          src={sprites.idle}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'idle' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+          }}
+        />
+        {/* Shocked character - freezes for 0.5s when mouse first moves */}
+        <img
+          src={sprites.shocked}
+          alt=""
+          className="w-8 h-8 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'shocked' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+            marginTop: '8px',
+            marginLeft: '8px',
+            transform: 'scaleX(-1)',
+          }}
+        />
+        {/* Happy character - shows for 0.5s when reaching destination */}
+        <img
+          src={sprites.happy}
+          alt=""
+          className="w-8 h-8 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'happy' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+            marginTop: '8px',
+            marginLeft: '8px',
+          }}
+        />
+        {/* Floating character - when cursor is straight up (90 degrees) */}
+        <img
+          src={sprites.float}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'floating' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+          }}
+        />
+        {/* Climbing character - when cursor is above at an angle */}
+        <img
+          src={sprites.climb}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'climbing' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+            transform: 'scaleX(-1)',
+          }}
+        />
+        {/* Falling character - when cursor is straight down (90 degrees) */}
+        <img
+          src={sprites.fall}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'falling' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+          }}
+        />
+        {/* Descending character - when cursor is below at an angle */}
+        <img
+          src={sprites.runDown}
+          alt=""
+          className="w-8 h-8 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'descending' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+            marginTop: '8px',
+            marginLeft: '8px',
+            transform: 'scaleX(-1)',
+          }}
+        />
+        {/* Running character - horizontal movement */}
+        <img
+          src={sprites.running}
+          alt=""
+          className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: characterState === 'running' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
+          }}
+        />
+      </div>
+    </>
   );
 };
 
