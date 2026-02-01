@@ -215,13 +215,15 @@
 }
 
 @layer utilities {
-  /* ===== Scroll Reveal System ===== */
+  /* ===== Enhanced Scroll Reveal System ===== */
+  
+  /* Default element reveal - balanced motion */
   .reveal-element {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
     transition: 
-      opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .reveal-element.revealed {
@@ -229,27 +231,27 @@
     transform: translateY(0);
   }
 
-  /* Subtle emphasis animation for titles */
-  .reveal-title {
+  /* Heading reveal - slower, more presence */
+  .reveal-heading {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(18px);
     transition: 
-      opacity 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .reveal-title.revealed {
+  .reveal-heading.revealed {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* Softer reveal for paragraphs */
+  /* Text reveal - faster, lighter feel */
   .reveal-text {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(10px);
     transition: 
-      opacity 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .reveal-text.revealed {
@@ -257,9 +259,51 @@
     transform: translateY(0);
   }
 
+  /* Image reveal - scale with fade */
+  .reveal-image {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+    transition: 
+      opacity 550ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-image.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  /* Card reveal - lift effect */
+  .reveal-card {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Word-by-word reveal */
+  .reveal-word {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 
+      opacity 350ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-word.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* ===== Micro-interactions ===== */
   
-  /* Link underline animation */
+  /* Link underline animation - smooth sweep */
   .link-animate {
     @apply relative;
   }
@@ -269,7 +313,7 @@
     @apply absolute bottom-0 left-0 w-full h-px bg-current;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .link-animate:hover::after {
@@ -277,59 +321,83 @@
     transform-origin: left;
   }
 
-  /* Card hover with subtle lift */
+  /* Card hover - refined lift with shadow */
   .card-hover {
     transition: 
-      transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      box-shadow 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .card-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px -12px hsl(var(--foreground) / 0.15);
+    transform: translateY(-4px);
+    box-shadow: 
+      0 12px 40px -15px hsl(var(--foreground) / 0.12),
+      0 4px 12px -8px hsl(var(--foreground) / 0.08);
   }
 
-  /* Button micro-interaction */
+  /* Button micro-interaction - confident press */
   .btn-animate {
     transition: 
-      transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      opacity 200ms ease;
+      transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 250ms ease,
+      background-color 250ms ease;
   }
 
   .btn-animate:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
   }
 
   .btn-animate:active {
     transform: scale(0.98);
+    transition-duration: 100ms;
   }
 
-  /* Badge subtle hover */
+  /* Badge subtle hover - slight emphasis */
   .badge-animate {
     transition: 
-      transform 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      background-color 250ms ease;
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms ease,
+      border-color 300ms ease;
   }
 
   .badge-animate:hover {
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
 
-  /* Image reveal with subtle scale */
-  .img-reveal {
-    opacity: 0;
-    transform: scale(0.98);
+  /* Icon hover - gentle scale */
+  .icon-hover {
     transition: 
-      opacity 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 300ms ease;
   }
 
-  .img-reveal.revealed {
-    opacity: 1;
-    transform: scale(1);
+  .icon-hover:hover {
+    transform: scale(1.08);
   }
 
-  /* ===== Legacy animations ===== */
+  /* Image hover - subtle zoom */
+  .img-hover {
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: hidden;
+  }
+
+  .img-hover:hover {
+    transform: scale(1.02);
+  }
+
+  /* ===== Scroll-based utilities ===== */
+  
+  /* Smooth section transitions */
+  .section-transition {
+    transition: opacity 300ms ease;
+  }
+
+  /* Parallax container */
+  .parallax-slow {
+    will-change: transform;
+  }
+
+  /* ===== Legacy animations (kept for compatibility) ===== */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out;
   }
@@ -343,12 +411,8 @@
   }
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @keyframes slideUp {
@@ -379,6 +443,7 @@
   .stagger-4 { animation-delay: 0.4s; }
   .stagger-5 { animation-delay: 0.5s; }
 
+  /* Character animations */
   .animate-bounce-run {
     animation: bounceRun 0.3s ease-in-out infinite;
   }
@@ -392,39 +457,21 @@
   }
 
   @keyframes bounceRun {
-    0%, 100% {
-      transform: translateY(0) rotate(-5deg);
-    }
-    50% {
-      transform: translateY(-8px) rotate(5deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
   }
 
   @keyframes walkBounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-4px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
   }
 
   @keyframes runAnimation {
-    0% {
-      transform: translateY(0) rotate(-8deg) scaleY(0.95);
-    }
-    25% {
-      transform: translateY(-6px) rotate(0deg) scaleY(1.05);
-    }
-    50% {
-      transform: translateY(0) rotate(8deg) scaleY(0.95);
-    }
-    75% {
-      transform: translateY(-6px) rotate(0deg) scaleY(1.05);
-    }
-    100% {
-      transform: translateY(0) rotate(-8deg) scaleY(0.95);
-    }
+    0% { transform: translateY(0) rotate(-8deg) scaleY(0.95); }
+    25% { transform: translateY(-6px) rotate(0deg) scaleY(1.05); }
+    50% { transform: translateY(0) rotate(8deg) scaleY(0.95); }
+    75% { transform: translateY(-6px) rotate(0deg) scaleY(1.05); }
+    100% { transform: translateY(0) rotate(-8deg) scaleY(0.95); }
   }
 
   .pixelated {
@@ -435,9 +482,11 @@
   /* ===== Reduced motion ===== */
   @media (prefers-reduced-motion: reduce) {
     .reveal-element,
-    .reveal-title,
+    .reveal-heading,
     .reveal-text,
-    .img-reveal {
+    .reveal-image,
+    .reveal-card,
+    .reveal-word {
       opacity: 1;
       transform: none;
       transition: none;
@@ -446,12 +495,18 @@
     .card-hover:hover,
     .btn-animate:hover,
     .btn-animate:active,
-    .badge-animate:hover {
+    .badge-animate:hover,
+    .icon-hover:hover,
+    .img-hover:hover {
       transform: none;
     }
 
     .link-animate::after {
       transition: none;
+    }
+
+    .parallax-slow {
+      will-change: auto;
     }
   }
 }

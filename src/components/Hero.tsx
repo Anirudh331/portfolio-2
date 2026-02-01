@@ -2,7 +2,7 @@ import profileAvatar from '@/assets/profile-avatar.png';
 import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import cursorIcon from '@/assets/cursor.webp';
 import { Send } from 'lucide-react';
-import { Reveal } from '@/hooks/useScrollReveal';
+import { Reveal, Parallax } from '@/hooks/useScrollReveal';
 
 const SkillBadge = ({ children }: { children: React.ReactNode }) => (
   <span className="tech-badge badge-animate">
@@ -14,7 +14,7 @@ const Hero = () => {
 
   return (
     <section className="container mx-auto px-4 py-8">
-      <Reveal delay={0}>
+      <Reveal delay={0} variant="image">
         <div className="relative inline-block mb-6">
           <div className="relative w-24 h-24">
             <img
@@ -37,19 +37,21 @@ const Hero = () => {
         </div>
       </Reveal>
 
-      <Reveal delay={80}>
+      <Reveal delay={100} variant="text">
         <p className="text-sm text-muted-foreground mb-2">
           Currently shipping <span className="font-semibold text-foreground">education products</span>
         </p>
       </Reveal>
 
-      <Reveal delay={160}>
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          Hi, I'm Anirudh — <span className="text-muted-foreground">Media, marketing, and product building.</span>
-        </h1>
-      </Reveal>
+      <Parallax speed={0.03}>
+        <Reveal delay={180} variant="heading">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            Hi, I'm Anirudh — <span className="text-muted-foreground">Media, marketing, and product building.</span>
+          </h1>
+        </Reveal>
+      </Parallax>
 
-      <Reveal delay={240}>
+      <Reveal delay={280} variant="text">
         <p className="text-base text-muted-foreground mb-6 leading-relaxed">
           Currently building education startups and experimenting with marketing through real projects.
           <br /><br />
@@ -61,7 +63,7 @@ const Hero = () => {
         </p>
       </Reveal>
 
-      <Reveal delay={320}>
+      <Reveal delay={380}>
         <div className="flex flex-wrap gap-3 mb-6">
           <a
             href="#contact"
@@ -73,20 +75,20 @@ const Hero = () => {
         </div>
       </Reveal>
 
-      <Reveal delay={400}>
+      <Reveal delay={480}>
         <div className="flex gap-3">
           <a
             href="https://www.linkedin.com/in/anirudhnraikar/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground icon-hover"
             aria-label="LinkedIn"
           >
             <span className="text-sm font-medium">in</span>
           </a>
           <a
             href="mailto:anirudh@anirudhworks.site"
-            className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground icon-hover"
             aria-label="Email"
           >
             <span className="text-sm font-medium">✉</span>
