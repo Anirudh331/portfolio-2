@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
+import { Reveal } from '@/hooks/useScrollReveal';
 import { ArrowLeft, Calendar, ExternalLink, MessageSquare, BarChart3, Brain, AlertTriangle, Eye, RefreshCw, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogHeroImage from '@/assets/blog-storytelling-vs-performance.png';
@@ -21,37 +22,41 @@ const SectionCard = ({ icon, title, children, variant = 'default' }: SectionCard
   };
 
   return (
-    <div className={`border rounded-xl p-6 my-6 ${variantStyles[variant]}`}>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-          {icon}
+    <Reveal>
+      <div className={`border rounded-xl p-6 my-6 ${variantStyles[variant]}`}>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+            {icon}
+          </div>
+          <h3 className="text-lg font-semibold">{title}</h3>
         </div>
-        <h3 className="text-lg font-semibold">{title}</h3>
+        <div className="text-muted-foreground space-y-3">
+          {children}
+        </div>
       </div>
-      <div className="text-muted-foreground space-y-3">
-        {children}
-      </div>
-    </div>
+    </Reveal>
   );
 };
 
 const ComparisonBlock = ({ left, right }: { left: string; right: string }) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-    <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-5">
-      <div className="flex items-center gap-2 mb-3">
-        <MessageSquare className="w-5 h-5 text-purple-400" />
-        <span className="font-semibold text-purple-400">Storytelling</span>
+  <Reveal>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+      <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <MessageSquare className="w-5 h-5 text-purple-400" />
+          <span className="font-semibold text-purple-400">Storytelling</span>
+        </div>
+        <p className="text-muted-foreground text-sm">{left}</p>
       </div>
-      <p className="text-muted-foreground text-sm">{left}</p>
-    </div>
-    <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-5">
-      <div className="flex items-center gap-2 mb-3">
-        <BarChart3 className="w-5 h-5 text-cyan-400" />
-        <span className="font-semibold text-cyan-400">Performance</span>
+      <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <BarChart3 className="w-5 h-5 text-cyan-400" />
+          <span className="font-semibold text-cyan-400">Performance</span>
+        </div>
+        <p className="text-muted-foreground text-sm">{right}</p>
       </div>
-      <p className="text-muted-foreground text-sm">{right}</p>
     </div>
-  </div>
+  </Reveal>
 );
 
 const Blog5 = () => {

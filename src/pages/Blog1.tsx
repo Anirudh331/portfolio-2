@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
+import { Reveal } from '@/hooks/useScrollReveal';
 import { ArrowLeft, Calendar, ExternalLink, Brain, Eye, Lightbulb, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogMindFirstImage from '@/assets/blog-mind-first.svg';
@@ -60,148 +61,162 @@ const Blog1 = () => {
           {/* Content */}
           <div className="space-y-12">
             {/* Intro Section */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <p className="text-lg leading-relaxed text-foreground/90">
-                Most marketing advice assumes consumers carefully evaluate every option before making a decision.
-              </p>
-              <p className="text-2xl font-semibold mt-4 text-primary">
-                They don't.
-              </p>
-              <p className="text-lg leading-relaxed mt-4 text-foreground/90">
-                In reality, most consumer decisions are made using whatever information happens to be <span className="font-medium text-foreground">most accessible at the moment of choice</span>, not necessarily what's most accurate or most relevant. This idea sits at the center of consumer psychology and explains why small cues, timing, and framing often matter more than detailed feature lists or long explanations.
-              </p>
-              <p className="text-lg leading-relaxed mt-4 text-foreground/90">
-                Understanding this changes how you approach messaging, design, pricing, and even product positioning.
-              </p>
-              <p className="text-lg font-medium mt-6 text-foreground">
-                Let's break it down.
-              </p>
-            </section>
+            <Reveal>
+              <section>
+                <p className="text-lg leading-relaxed text-foreground/90">
+                  Most marketing advice assumes consumers carefully evaluate every option before making a decision.
+                </p>
+                <p className="text-2xl font-semibold mt-4 text-primary">
+                  They don't.
+                </p>
+                <p className="text-lg leading-relaxed mt-4 text-foreground/90">
+                  In reality, most consumer decisions are made using whatever information happens to be <span className="font-medium text-foreground">most accessible at the moment of choice</span>, not necessarily what's most accurate or most relevant. This idea sits at the center of consumer psychology and explains why small cues, timing, and framing often matter more than detailed feature lists or long explanations.
+                </p>
+                <p className="text-lg leading-relaxed mt-4 text-foreground/90">
+                  Understanding this changes how you approach messaging, design, pricing, and even product positioning.
+                </p>
+                <p className="text-lg font-medium mt-6 text-foreground">
+                  Let's break it down.
+                </p>
+              </section>
+            </Reveal>
 
             {/* Core Idea Section */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.35s' }}>
-              <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 border border-primary/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-primary/20 rounded-lg">
-                    <Brain className="w-6 h-6 text-primary" />
+            <Reveal>
+              <section>
+                <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 border border-primary/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-primary/20 rounded-lg">
+                      <Brain className="w-6 h-6 text-primary" />
+                    </div>
+                    <h2 className="text-2xl font-bold">The Core Idea: Accessibility Beats Completeness</h2>
                   </div>
-                  <h2 className="text-2xl font-bold">The Core Idea: Accessibility Beats Completeness</h2>
+                  <p className="text-lg leading-relaxed text-foreground/90">
+                    When people make judgments or decisions, they rarely use all the knowledge they have. Instead, they rely on a small subset of information that <span className="font-medium text-foreground">comes to mind quickly and easily</span>.
+                  </p>
+                  <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {['Attention', 'Interpretation', 'Evaluation', 'Final Decision'].map((item) => (
+                      <div 
+                        key={item}
+                        className="bg-background/50 rounded-lg p-3 text-center border border-border hover:border-primary/50 transition-colors hover-scale"
+                      >
+                        <span className="text-sm font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-lg leading-relaxed mt-6 text-foreground/90 font-medium">
+                    In other words, marketing doesn't win by saying more. It wins by making the right thing easier to think about.
+                  </p>
                 </div>
-                <p className="text-lg leading-relaxed text-foreground/90">
-                  When people make judgments or decisions, they rarely use all the knowledge they have. Instead, they rely on a small subset of information that <span className="font-medium text-foreground">comes to mind quickly and easily</span>.
+              </section>
+            </Reveal>
+
+            {/* Process Section */}
+            <Reveal>
+              <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                  <Target className="w-6 h-6 text-primary" />
+                  How Consumers Actually Process Information
+                </h2>
+                <p className="text-lg leading-relaxed text-foreground/90 mb-8">
+                  Consumer decision-making usually moves through four broad stages:
                 </p>
-                <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {['Attention', 'Interpretation', 'Evaluation', 'Final Decision'].map((item, index) => (
+                
+                <div className="space-y-4">
+                  {[
+                    { icon: Eye, title: 'Attention', desc: 'What gets noticed' },
+                    { icon: Brain, title: 'Comprehension', desc: 'How information is interpreted' },
+                    { icon: Lightbulb, title: 'Inference', desc: 'What conclusions are drawn' },
+                    { icon: Target, title: 'Response', desc: 'The action taken' },
+                  ].map((stage, index) => (
                     <div 
-                      key={item}
-                      className="bg-background/50 rounded-lg p-3 text-center border border-border hover:border-primary/50 transition-colors hover-scale"
+                      key={stage.title}
+                      className="flex items-start gap-4 p-5 bg-muted/50 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:bg-muted group"
                     >
-                      <span className="text-sm font-medium">{item}</span>
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        <stage.icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">{stage.title}</h3>
+                        <p className="text-muted-foreground">{stage.desc}</p>
+                      </div>
+                      <span className="ml-auto text-4xl font-bold text-muted-foreground/20 group-hover:text-primary/20 transition-colors">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                     </div>
                   ))}
                 </div>
-                <p className="text-lg leading-relaxed mt-6 text-foreground/90 font-medium">
-                  In other words, marketing doesn't win by saying more. It wins by making the right thing easier to think about.
+
+                <p className="text-lg leading-relaxed mt-8 text-foreground/90">
+                  At each stage, previously learned knowledge has to be activated. But not all knowledge is equally likely to show up. The brain takes shortcuts and uses what's already active or familiar.
                 </p>
-              </div>
-            </section>
-
-            {/* Process Section */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <Target className="w-6 h-6 text-primary" />
-                How Consumers Actually Process Information
-              </h2>
-              <p className="text-lg leading-relaxed text-foreground/90 mb-8">
-                Consumer decision-making usually moves through four broad stages:
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  { icon: Eye, title: 'Attention', desc: 'What gets noticed' },
-                  { icon: Brain, title: 'Comprehension', desc: 'How information is interpreted' },
-                  { icon: Lightbulb, title: 'Inference', desc: 'What conclusions are drawn' },
-                  { icon: Target, title: 'Response', desc: 'The action taken' },
-                ].map((stage, index) => (
-                  <div 
-                    key={stage.title}
-                    className="flex items-start gap-4 p-5 bg-muted/50 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:bg-muted group"
-                  >
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      <stage.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">{stage.title}</h3>
-                      <p className="text-muted-foreground">{stage.desc}</p>
-                    </div>
-                    <span className="ml-auto text-4xl font-bold text-muted-foreground/20 group-hover:text-primary/20 transition-colors">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <p className="text-lg leading-relaxed mt-8 text-foreground/90">
-                At each stage, previously learned knowledge has to be activated. But not all knowledge is equally likely to show up. The brain takes shortcuts and uses what's already active or familiar.
-              </p>
-              <p className="text-lg leading-relaxed mt-4 text-foreground/90 italic border-l-4 border-primary pl-4">
-                This is why two people can see the same product and walk away with very different impressions.
-              </p>
-            </section>
+                <p className="text-lg leading-relaxed mt-4 text-foreground/90 italic border-l-4 border-primary pl-4">
+                  This is why two people can see the same product and walk away with very different impressions.
+                </p>
+              </section>
+            </Reveal>
 
             {/* CTA Card */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.45s' }}>
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-8 text-primary-foreground">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                <div className="relative">
-                  <h3 className="text-2xl font-bold mb-2">Want to read the full piece?</h3>
-                  <p className="text-primary-foreground/80 mb-6">
-                    Dive deeper into consumer psychology and marketing strategies.
-                  </p>
-                  <a 
-                    href="https://medium.com/@thewhylayer/why-what-comes-to-mind-first-wins-a-practical-look-at-consumer-psychology-04c3a1775186" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors hover-scale"
-                  >
-                    Read full on Medium
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+            <Reveal>
+              <section>
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-8 text-primary-foreground">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                  <div className="relative">
+                    <h3 className="text-2xl font-bold mb-2">Want to read the full piece?</h3>
+                    <p className="text-primary-foreground/80 mb-6">
+                      Dive deeper into consumer psychology and marketing strategies.
+                    </p>
+                    <a 
+                      href="https://medium.com/@thewhylayer/why-what-comes-to-mind-first-wins-a-practical-look-at-consumer-psychology-04c3a1775186" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors hover-scale"
+                    >
+                      Read full on Medium
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </Reveal>
 
             {/* Takeaway Section */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="bg-muted rounded-2xl p-8 border border-border">
-                <div className="flex items-center gap-2 text-sm font-medium text-primary mb-3">
-                  <Lightbulb className="w-4 h-4" />
-                  KEY TAKEAWAY
+            <Reveal>
+              <section>
+                <div className="bg-muted rounded-2xl p-8 border border-border">
+                  <div className="flex items-center gap-2 text-sm font-medium text-primary mb-3">
+                    <Lightbulb className="w-4 h-4" />
+                    KEY TAKEAWAY
+                  </div>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">
+                    Being first to mind beats being best on paper. Build mental availability through <span className="text-primary">consistent presence</span>, not just clever targeting.
+                  </p>
                 </div>
-                <p className="text-xl md:text-2xl font-medium leading-relaxed">
-                  Being first to mind beats being best on paper. Build mental availability through <span className="text-primary">consistent presence</span>, not just clever targeting.
-                </p>
-              </div>
-            </section>
+              </section>
+            </Reveal>
 
             {/* Bottom Appreciation */}
-            <section className="animate-fade-in" style={{ animationDelay: '0.55s' }}>
-              <BlogInteractions slug="blog1" variant="bottom" />
-            </section>
+            <Reveal>
+              <section>
+                <BlogInteractions slug="blog1" variant="bottom" />
+              </section>
+            </Reveal>
           </div>
 
           {/* Footer CTA */}
-          <div className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <a 
-              href="https://thewhylayer.substack.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-            >
-              To read the full article, check out The Why Layer
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </div>
+          <Reveal>
+            <div className="mt-12 pt-8 border-t border-border">
+              <a 
+                href="https://thewhylayer.substack.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+              >
+                To read the full article, check out The Why Layer
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </Reveal>
         </article>
       </main>
       <Footer />
