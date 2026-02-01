@@ -97,7 +97,7 @@ const Blogs = () => {
       </Reveal>
 
       <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4" staggerDelay={100}>
-        {blogs.map((blog) => (
+        {blogs.slice(0, 2).map((blog) => (
           <BlogCard key={blog.title} blog={blog} />
         ))}
       </StaggerContainer>
