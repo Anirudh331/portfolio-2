@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import profileAvatar from '@/assets/profile-avatar.png';
 import profileAvatarDark from '@/assets/profile-avatar-dark.png';
 import {
@@ -30,11 +30,27 @@ const Navbar = () => {
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleTheme = () => {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
     document.documentElement.classList.toggle('dark');
+  };
+
+  // Handle navigation to section (works from any page)
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      // Already on home page, just scroll
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to home first, then scroll
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   };
 
   // Handle keyboard shortcut
@@ -74,7 +90,7 @@ const Navbar = () => {
       <header className="container mx-auto sticky top-0 z-50 py-4 glass-nav">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-baseline gap-4">
-            <a href="/" className="hover-scale will-change-transform">
+            <a href="/" className="hover-scale will-change-transform" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
               <div className="relative h-12 w-12">
                 <img
                   src={profileAvatar}
@@ -89,9 +105,9 @@ const Navbar = () => {
               </div>
             </a>
             <nav className="flex items-baseline gap-4">
-              <a href="#experience" className="nav-link">Work</a>
-              <a href="#blogs" className="nav-link">Blogs</a>
-              <a href="#projects" className="nav-link">Projects</a>
+              <a href="/#experience" className="nav-link" onClick={(e) => handleNavClick(e, 'experience')}>Work</a>
+              <a href="/#blogs" className="nav-link" onClick={(e) => handleNavClick(e, 'blogs')}>Blogs</a>
+              <a href="/#projects" className="nav-link" onClick={(e) => handleNavClick(e, 'projects')}>Projects</a>
             </nav>
           </div>
           <div className="flex items-center gap-3">
