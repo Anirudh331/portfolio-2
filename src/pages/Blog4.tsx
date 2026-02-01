@@ -78,7 +78,7 @@ const Blog4 = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-8 border-b border-border">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="w-4 h-4" />
-              <span>January 2026</span>
+              <span>December 2025</span>
             </div>
             <BlogInteractions slug="blog4" />
           </div>
