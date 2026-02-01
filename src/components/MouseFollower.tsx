@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import characterIdle from '@/assets/character-idle.png';
 import characterRunning from '@/assets/character-running.gif';
 import characterShocked from '@/assets/character-shocked.png';
-import characterClimb from '@/assets/character-climb.png';
+import characterClimb from '@/assets/character-climb.gif';
 import characterRunDown from '@/assets/character-run-down.png';
 import characterHappy from '@/assets/character-happy.png';
 
