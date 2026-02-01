@@ -218,6 +218,7 @@ const MouseFollower = () => {
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'climbing' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
+          transform: 'scaleX(-1)',
         }}
       />
       {/* Descending character - when cursor is below */}
