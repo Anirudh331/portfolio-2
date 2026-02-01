@@ -97,14 +97,14 @@ const Navbar = () => {
                   alt="Ram"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-10 w-10 rounded-full border border-border object-cover dark:opacity-0 transition-opacity duration-0"
+                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-cover dark:opacity-0 transition-opacity duration-0"
                 />
                 <img
                   src={profileAvatarDark}
                   alt="Ram"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-10 w-10 rounded-full border border-border object-cover opacity-0 dark:opacity-100 transition-opacity duration-0"
+                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-cover opacity-0 dark:opacity-100 transition-opacity duration-0"
                 />
               </div>
             </a>
