@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
+import { Reveal } from '@/hooks/useScrollReveal';
 import { ArrowLeft, Calendar, ExternalLink, Zap, Mail, Users, Search, Repeat } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogOrganicHero from '@/assets/blog-organic-hero.png';
@@ -17,18 +18,20 @@ const StrategyCard = ({
   icon: React.ElementType;
   children: React.ReactNode;
 }) => (
-  <div className="my-8 p-6 bg-card rounded-xl border border-border">
-    <div className="flex items-center gap-3 mb-4">
-      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold">
-        {number}
+  <Reveal>
+    <div className="my-8 p-6 bg-card rounded-xl border border-border">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold">
+          {number}
+        </div>
+        <Icon className="w-5 h-5 text-primary" />
+        <h3 className="text-xl font-semibold">{title}</h3>
       </div>
-      <Icon className="w-5 h-5 text-primary" />
-      <h3 className="text-xl font-semibold">{title}</h3>
+      <div className="space-y-4 text-muted-foreground">
+        {children}
+      </div>
     </div>
-    <div className="space-y-4 text-muted-foreground">
-      {children}
-    </div>
-  </div>
+  </Reveal>
 );
 
 const BulletPoint = ({ children }: { children: React.ReactNode }) => (
@@ -88,55 +91,63 @@ const Blog3 = () => {
 
           {/* Content */}
           <div className="prose prose-neutral dark:prose-invert max-w-none space-y-6">
-            <p>
-              Organic growth is still one of the most underrated ways to attract attention, trust, and customers without burning money on ads. In 2026, it matters even more. Platforms are crowded, ad costs keep rising, and audiences are far more skeptical than they were a few years ago.
-            </p>
+            <Reveal>
+              <p>
+                Organic growth is still one of the most underrated ways to attract attention, trust, and customers without burning money on ads. In 2026, it matters even more. Platforms are crowded, ad costs keep rising, and audiences are far more skeptical than they were a few years ago.
+              </p>
 
-            <p>
-              This piece breaks down five organic growth strategies that actually compound over time. Nothing flashy. Nothing theoretical. Just systems that work if you commit to them.
-            </p>
+              <p>
+                This piece breaks down five organic growth strategies that actually compound over time. Nothing flashy. Nothing theoretical. Just systems that work if you commit to them.
+              </p>
 
-            <p>Before jumping in, let's ground the basics.</p>
+              <p>Before jumping in, let's ground the basics.</p>
+            </Reveal>
 
             {/* What is organic growth */}
-            <h2 className="text-2xl font-semibold mt-12 mb-4">What does "organic growth" mean in marketing?</h2>
-            
-            <p>
-              Organic growth marketing focuses on acquiring users without directly paying for distribution. That includes SEO, content, product-driven sharing, newsletters, community, and word of mouth.
-            </p>
+            <Reveal>
+              <h2 className="text-2xl font-semibold mt-12 mb-4">What does "organic growth" mean in marketing?</h2>
+              
+              <p>
+                Organic growth marketing focuses on acquiring users without directly paying for distribution. That includes SEO, content, product-driven sharing, newsletters, community, and word of mouth.
+              </p>
 
-            <p>At its core, organic growth relies on:</p>
+              <p>At its core, organic growth relies on:</p>
 
-            <div className="bg-muted/50 rounded-lg p-6 my-6">
-              <ul className="space-y-3">
-                <BulletPoint><strong>Owned media:</strong> your website, product, email list, content</BulletPoint>
-                <BulletPoint><strong>Earned media:</strong> mentions, shares, referrals, trust</BulletPoint>
-              </ul>
-            </div>
+              <div className="bg-muted/50 rounded-lg p-6 my-6">
+                <ul className="space-y-3">
+                  <BulletPoint><strong>Owned media:</strong> your website, product, email list, content</BulletPoint>
+                  <BulletPoint><strong>Earned media:</strong> mentions, shares, referrals, trust</BulletPoint>
+                </ul>
+              </div>
 
-            <p>
-              Instead of renting attention from ad platforms, you build assets that keep working even when you stop actively pushing them.
-            </p>
+              <p>
+                Instead of renting attention from ad platforms, you build assets that keep working even when you stop actively pushing them.
+              </p>
+            </Reveal>
 
             {/* Why it matters */}
-            <h2 className="text-2xl font-semibold mt-12 mb-4">Why organic growth matters in 2026</h2>
-            
-            <p>Organic growth isn't just a "nice-to-have." It's a structural advantage.</p>
+            <Reveal>
+              <h2 className="text-2xl font-semibold mt-12 mb-4">Why organic growth matters in 2026</h2>
+              
+              <p>Organic growth isn't just a "nice-to-have." It's a structural advantage.</p>
 
-            <div className="bg-card rounded-xl border border-border p-6 my-6">
-              <h3 className="font-semibold mb-4">Key benefits</h3>
-              <ul className="space-y-3">
-                <BulletPoint><strong>Lower CAC over time:</strong> Paid channels inflate acquisition costs. Organic channels amortize.</BulletPoint>
-                <BulletPoint><strong>Brand trust:</strong> People trust what they discover, not what interrupts them.</BulletPoint>
-                <BulletPoint><strong>Sustainability:</strong> Organic systems behave like flywheels. Slow to start, hard to stop.</BulletPoint>
-                <BulletPoint><strong>Resilience:</strong> When ad platforms change rules or pricing, organic assets still stand.</BulletPoint>
-              </ul>
-            </div>
+              <div className="bg-card rounded-xl border border-border p-6 my-6">
+                <h3 className="font-semibold mb-4">Key benefits</h3>
+                <ul className="space-y-3">
+                  <BulletPoint><strong>Lower CAC over time:</strong> Paid channels inflate acquisition costs. Organic channels amortize.</BulletPoint>
+                  <BulletPoint><strong>Brand trust:</strong> People trust what they discover, not what interrupts them.</BulletPoint>
+                  <BulletPoint><strong>Sustainability:</strong> Organic systems behave like flywheels. Slow to start, hard to stop.</BulletPoint>
+                  <BulletPoint><strong>Resilience:</strong> When ad platforms change rules or pricing, organic assets still stand.</BulletPoint>
+                </ul>
+              </div>
 
-            <p>Now, let's get into the strategies.</p>
+              <p>Now, let's get into the strategies.</p>
+            </Reveal>
 
             {/* Main heading for strategies */}
-            <h2 className="text-2xl font-semibold mt-12 mb-6">5 proven organic growth marketing strategies for 2026</h2>
+            <Reveal>
+              <h2 className="text-2xl font-semibold mt-12 mb-6">5 proven organic growth marketing strategies for 2026</h2>
+            </Reveal>
 
             {/* Strategy 1 */}
             <StrategyCard number="1" title="Editorial SEO (beyond Google)" icon={Search}>

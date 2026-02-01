@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
+import { Reveal } from '@/hooks/useScrollReveal';
 import { ArrowLeft, Calendar, ExternalLink, Film, Eye, Target, Zap, Clock, User, Flag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import blogFilmmakingImage from '@/assets/blog-filmmaking.png';
@@ -13,17 +14,19 @@ interface InsightCardProps {
 }
 
 const InsightCard = ({ icon, title, children }: InsightCardProps) => (
-  <div className="bg-muted/30 border border-border rounded-xl p-6 my-6">
-    <div className="flex items-center gap-3 mb-4">
-      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-        {icon}
+  <Reveal>
+    <div className="bg-muted/30 border border-border rounded-xl p-6 my-6">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+          {icon}
+        </div>
+        <h3 className="text-lg font-semibold">{title}</h3>
       </div>
-      <h3 className="text-lg font-semibold">{title}</h3>
+      <div className="text-muted-foreground space-y-3">
+        {children}
+      </div>
     </div>
-    <div className="text-muted-foreground space-y-3">
-      {children}
-    </div>
-  </div>
+  </Reveal>
 );
 
 const Highlight = ({ children }: { children: React.ReactNode }) => (
