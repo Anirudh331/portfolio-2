@@ -12,7 +12,7 @@ interface BlogInteractionsProps {
 
 const STORAGE_KEY = 'blog_user_likes';
 const STORAGE_KEY_CLAPS = 'blog_user_claps';
-const MAX_REACTIONS = 50;
+const MAX_REACTIONS = 5;
 
 const getStoredReactions = (key: string): Record<string, number> => {
   try {
