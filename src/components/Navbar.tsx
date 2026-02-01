@@ -104,7 +104,7 @@ const Navbar = () => {
                 />
               </div>
             </a>
-            <nav className="flex items-baseline gap-4">
+            <nav className="hidden sm:flex items-baseline gap-4">
               <a href="/#experience" className="nav-link" onClick={(e) => handleNavClick(e, 'experience')}>Work</a>
               <a href="/#blogs" className="nav-link" onClick={(e) => handleNavClick(e, 'blogs')}>Blogs</a>
               <a href="/#projects" className="nav-link" onClick={(e) => handleNavClick(e, 'projects')}>Projects</a>
