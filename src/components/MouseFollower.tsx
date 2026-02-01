@@ -16,6 +16,7 @@ import characterFloat from '@/assets/character-float.gif';
 import characterFall from '@/assets/character-fall.gif';
 import characterRunDown from '@/assets/character-run-down.png';
 import characterHappy from '@/assets/character-happy.png';
+import characterGrabbed from '@/assets/character-grabbed.gif';
 
 interface Position {
   x: number;
@@ -34,6 +35,7 @@ interface CharacterSprites {
   fall: string;
   runDown: string;
   happy: string;
+  grabbed: string;
 }
 
 // Character sprite configurations
@@ -47,6 +49,7 @@ const CHARACTER_SPRITES: Record<CharacterType, CharacterSprites> = {
     fall: characterFall,
     runDown: characterRunDown,
     happy: characterHappy,
+    grabbed: characterGrabbed,
   },
   loki: {
     // For now, Loki uses same sprites - user can add custom sprites later
@@ -58,6 +61,7 @@ const CHARACTER_SPRITES: Record<CharacterType, CharacterSprites> = {
     fall: characterFall,
     runDown: characterRunDown,
     happy: characterHappy,
+    grabbed: characterGrabbed,
   },
 };
 
@@ -374,11 +378,22 @@ const MouseFollower = () => {
           className="w-8 h-8 object-contain absolute inset-0"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-            opacity: characterState === 'shocked' ? 1 : 0,
+            opacity: characterState === 'shocked' && !isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
             marginTop: '8px',
             marginLeft: '8px',
             transform: 'scaleX(-1)',
+          }}
+        />
+        {/* Grabbed character - when being dragged */}
+        <img
+          src={sprites.grabbed}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
+            opacity: isDragging ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
           }}
         />
         {/* Happy character - shows for 0.5s when reaching destination */}
