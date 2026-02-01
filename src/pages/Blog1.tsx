@@ -186,10 +186,15 @@ const Blog1 = () => {
                 </p>
               </div>
             </section>
+
+            {/* Bottom Appreciation */}
+            <section className="animate-fade-in" style={{ animationDelay: '0.55s' }}>
+              <BlogInteractions slug="blog1" variant="bottom" />
+            </section>
           </div>
 
           {/* Footer CTA */}
-          <div className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '0.55s' }}>
+          <div className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <a 
               href="https://thewhylayer.substack.com" 
               target="_blank" 

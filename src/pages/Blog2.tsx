@@ -82,8 +82,11 @@ const Blog2 = () => {
             </p>
           </div>
 
+          {/* Bottom Appreciation */}
+          <BlogInteractions slug="blog2" variant="bottom" />
+
           {/* Read Full CTA */}
-          <div className="mt-12 pt-8 border-t border-border">
+          <div className="mt-8 pt-8 border-t border-border">
             <a 
               href="https://thewhylayer.substack.com" 
               target="_blank" 
