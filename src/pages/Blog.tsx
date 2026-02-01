@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight, X } from 'lucide-react';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
 import blogSeoHero from '@/assets/blog-seo-hero.png';
 import blogOrganicHero from '@/assets/blog-organic-hero.png';
@@ -109,6 +110,12 @@ const BlogCard = ({ blog }: { blog: BlogPost }) => (
 );
 
 const Blog = () => {
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+  const filteredBlogs = selectedTag
+    ? blogs.filter(blog => blog.tags.includes(selectedTag))
+    : blogs;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -129,29 +136,62 @@ const Blog = () => {
           <h2 className="text-lg font-semibold mb-4">Popular Tags</h2>
           <div className="flex flex-wrap gap-2">
             {Object.entries(tagCounts).map(([tag, count]) => (
-              <span
+              <button
                 key={tag}
-                className="px-3 py-1.5 text-sm font-medium bg-muted hover:bg-muted/80 rounded-full cursor-pointer transition-colors"
+                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                className={`px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer transition-all duration-200 ${
+                  selectedTag === tag
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted hover:bg-muted/80'
+                }`}
               >
                 {tag} ({count})
-              </span>
+              </button>
             ))}
           </div>
+          
+          {/* Active filter indicator */}
+          {selectedTag && (
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Filtering by:</span>
+              <button
+                onClick={() => setSelectedTag(null)}
+                className="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
+              >
+                {selectedTag}
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Latest Posts */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold">
-            Latest Posts <span className="text-muted-foreground font-normal">({blogs.length} posts)</span>
+            {selectedTag ? `Posts tagged "${selectedTag}"` : 'Latest Posts'}{' '}
+            <span className="text-muted-foreground font-normal">({filteredBlogs.length} posts)</span>
           </h2>
         </div>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {blogs.map((blog) => (
+          {filteredBlogs.map((blog) => (
             <BlogCard key={blog.title} blog={blog} />
           ))}
         </div>
+
+        {/* No results */}
+        {filteredBlogs.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No posts found with this tag.</p>
+            <button
+              onClick={() => setSelectedTag(null)}
+              className="mt-4 text-primary hover:underline"
+            >
+              Clear filter
+            </button>
+          </div>
+        )}
       </main>
       <Footer />
     </div>
