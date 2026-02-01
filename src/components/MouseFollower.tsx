@@ -129,8 +129,8 @@ const MouseFollower = () => {
           setIsFlipped(dx < 0);
         }
 
-        // Don't move if in shocked, happy, or floating state - character freezes/floats
-        if (characterState === 'shocked' || characterState === 'happy' || characterState === 'floating') {
+        // Don't move if in shocked or happy state - character freezes
+        if (characterState === 'shocked' || characterState === 'happy') {
           return prev;
         }
 
@@ -221,11 +221,13 @@ const MouseFollower = () => {
       <img
         src={characterFloat}
         alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+        className="w-8 h-8 object-contain absolute inset-0"
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'floating' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
+          marginTop: '8px',
+          marginLeft: '8px',
         }}
       />
       {/* Climbing character - when cursor is above at an angle */}
