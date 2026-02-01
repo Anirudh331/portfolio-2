@@ -16,13 +16,14 @@ import characterFloat from '@/assets/character-float.gif';
 import characterFall from '@/assets/character-fall.gif';
 import characterRunDown from '@/assets/character-run-down.png';
 import characterHappy from '@/assets/character-happy.png';
+import characterGrab from '@/assets/character-grab.gif';
 
 interface Position {
   x: number;
   y: number;
 }
 
-type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'falling' | 'descending' | 'happy';
+type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'falling' | 'descending' | 'happy' | 'grabbing';
 type CharacterType = 'anibot' | 'loki';
 
 interface CharacterSprites {
@@ -34,6 +35,7 @@ interface CharacterSprites {
   fall: string;
   runDown: string;
   happy: string;
+  grab: string;
 }
 
 // Character sprite configurations
@@ -47,6 +49,7 @@ const CHARACTER_SPRITES: Record<CharacterType, CharacterSprites> = {
     fall: characterFall,
     runDown: characterRunDown,
     happy: characterHappy,
+    grab: characterGrab,
   },
   loki: {
     // For now, Loki uses same sprites - user can add custom sprites later
@@ -58,6 +61,7 @@ const CHARACTER_SPRITES: Record<CharacterType, CharacterSprites> = {
     fall: characterFall,
     runDown: characterRunDown,
     happy: characterHappy,
+    grab: characterGrab,
   },
 };
 
@@ -143,7 +147,7 @@ const MouseFollower = () => {
     if (e.button === 0) { // Left click only
       e.preventDefault();
       setIsDragging(true);
-      setCharacterState('shocked');
+      setCharacterState('grabbing');
     }
   };
 
@@ -348,8 +352,8 @@ const MouseFollower = () => {
         style={{
           left: position.x - 24,
           top: position.y - 48,
-          transform: `scaleX(${isFlipped ? -1 : 1})`,
-          transition: isDragging ? 'none' : 'transform 0.2s ease-out',
+          transform: `scaleX(${isFlipped ? -1 : 1}) scale(${isDragging ? 1.15 : 1})`,
+          transition: isDragging ? 'transform 0.15s ease-out' : 'transform 0.2s ease-out',
           cursor: isDragging ? 'grabbing' : isHovering ? 'grab' : 'pointer',
         }}
         onMouseEnter={() => setIsHovering(true)}
@@ -379,6 +383,17 @@ const MouseFollower = () => {
             marginTop: '8px',
             marginLeft: '8px',
             transform: 'scaleX(-1)',
+          }}
+        />
+        {/* Grabbing character - when being dragged */}
+        <img
+          src={sprites.grab}
+          alt=""
+          className="w-12 h-12 object-contain absolute inset-0"
+          style={{
+            filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+            opacity: characterState === 'grabbing' ? 1 : 0,
+            transition: 'opacity 0.15s ease-out',
           }}
         />
         {/* Happy character - shows for 0.5s when reaching destination */}
