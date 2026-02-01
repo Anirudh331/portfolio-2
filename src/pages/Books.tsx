@@ -4,6 +4,14 @@ import MouseFollower from '@/components/MouseFollower';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 import { BookOpen } from 'lucide-react';
 
+// Book cover imports
+import bookNoLongerHuman from '@/assets/book-no-longer-human.jpg';
+import bookCrimePunishment from '@/assets/book-crime-punishment.jpg';
+import book1984 from '@/assets/book-1984.jpg';
+import bookProjectHailMary from '@/assets/book-project-hail-mary.jpg';
+import bookCountMonteCristo from '@/assets/book-count-monte-cristo.jpg';
+import bookMeditations from '@/assets/book-meditations.jpg';
+
 interface Book {
   title: string;
   author: string;
@@ -16,6 +24,27 @@ interface BookCategory {
 }
 
 const bookCategories: BookCategory[] = [
+  {
+    name: 'Fiction & Literature',
+    books: [
+      { title: 'No Longer Human', author: 'Osamu Dazai', image: bookNoLongerHuman },
+      { title: 'Crime and Punishment', author: 'Fyodor Dostoevsky', image: bookCrimePunishment },
+      { title: '1984', author: 'George Orwell', image: book1984 },
+      { title: 'The Count of Monte Cristo', author: 'Alexandre Dumas', image: bookCountMonteCristo },
+    ],
+  },
+  {
+    name: 'Science Fiction',
+    books: [
+      { title: 'Project Hail Mary', author: 'Andy Weir', image: bookProjectHailMary },
+    ],
+  },
+  {
+    name: 'Philosophy & Stoicism',
+    books: [
+      { title: 'Meditations', author: 'Marcus Aurelius', image: bookMeditations },
+    ],
+  },
   {
     name: 'Power & Influence',
     books: [
