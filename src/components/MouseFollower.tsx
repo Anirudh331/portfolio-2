@@ -16,13 +16,25 @@ interface Position {
 type CharacterState = 'idle' | 'shocked' | 'running' | 'climbing' | 'floating' | 'falling' | 'descending' | 'happy';
 
 const MouseFollower = () => {
-  const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
-  const [targetPosition, setTargetPosition] = useState<Position>({ x: 100, y: 100 });
+  // Start character lower on the page (visible below hero section)
+  const [position, setPosition] = useState<Position>({ x: 100, y: 400 });
+  const [targetPosition, setTargetPosition] = useState<Position>({ x: 100, y: 400 });
   const [isFlipped, setIsFlipped] = useState(false);
   const [characterState, setCharacterState] = useState<CharacterState>('idle');
+  const [isMobile, setIsMobile] = useState(false);
   const animationRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
   const wasIdleRef = useRef(true);
+
+  // Detect mobile/touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -176,6 +188,11 @@ const MouseFollower = () => {
       }
     };
   }, []);
+
+  // Hide on mobile - mouse following doesn't work on touch devices
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <div
