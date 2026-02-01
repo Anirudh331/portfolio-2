@@ -359,23 +359,30 @@ const MouseFollower = () => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => !isDragging && setIsHovering(false)}
         onMouseDown={(e) => handleMouseDown(e.nativeEvent)}
+        onDragStart={(e) => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
       >
         {/* Idle character */}
         <img
           src={sprites.idle}
           alt=""
-          className="w-12 h-12 object-contain absolute inset-0"
+          draggable={false}
+          className="w-12 h-12 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'idle' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Shocked character - freezes for 0.5s when mouse first moves */}
         <img
           src={sprites.shocked}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          draggable={false}
+          className="w-8 h-8 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'shocked' && !isDragging ? 1 : 0,
@@ -383,71 +390,95 @@ const MouseFollower = () => {
             marginTop: '8px',
             marginLeft: '8px',
             transform: 'scaleX(-1)',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Grabbed character - when being dragged */}
         <img
           src={sprites.grabbed}
           alt=""
-          className="w-12 h-12 object-contain absolute inset-0"
+          draggable={false}
+          className="w-12 h-12 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: isDragging ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Happy character - shows for 0.5s when reaching destination */}
         <img
           src={sprites.happy}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          draggable={false}
+          className="w-8 h-8 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'happy' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
             marginTop: '8px',
             marginLeft: '8px',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Floating character - when cursor is straight up (90 degrees) */}
         <img
           src={sprites.float}
           alt=""
-          className="w-12 h-12 object-contain absolute inset-0"
+          draggable={false}
+          className="w-12 h-12 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'floating' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Climbing character - when cursor is above at an angle */}
         <img
           src={sprites.climb}
           alt=""
-          className="w-12 h-12 object-contain absolute inset-0"
+          draggable={false}
+          className="w-12 h-12 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'climbing' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
             transform: 'scaleX(-1)',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Falling character - when cursor is straight down (90 degrees) */}
         <img
           src={sprites.fall}
           alt=""
-          className="w-12 h-12 object-contain absolute inset-0"
+          draggable={false}
+          className="w-12 h-12 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'falling' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Descending character - when cursor is below at an angle */}
         <img
           src={sprites.runDown}
           alt=""
-          className="w-8 h-8 object-contain absolute inset-0"
+          draggable={false}
+          className="w-8 h-8 object-contain absolute inset-0 select-none"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'descending' ? 1 : 0,
@@ -455,18 +486,25 @@ const MouseFollower = () => {
             marginTop: '8px',
             marginLeft: '8px',
             transform: 'scaleX(-1)',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
         {/* Running character - horizontal movement */}
         <img
           src={sprites.running}
           alt=""
-          className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
+          draggable={false}
+          className={`w-12 h-12 object-contain select-none ${characterState === 'running' ? 'animate-walk' : ''}`}
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
             opacity: characterState === 'running' ? 1 : 0,
             transition: 'opacity 0.15s ease-out',
-          }}
+            WebkitUserDrag: 'none',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          } as React.CSSProperties}
         />
       </div>
     </>
