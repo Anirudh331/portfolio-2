@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
 import blogSeoHero from '@/assets/blog-seo-hero.png';
 import blogOrganicHero from '@/assets/blog-organic-hero.png';
+import blogFilmmakingImage from '@/assets/blog-filmmaking.png';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 
 interface BlogPost {
@@ -37,6 +38,14 @@ const blogs: BlogPost[] = [
     tags: ['Marketing', 'Growth', 'Strategy'],
     date: 'January 2026',
     link: '/blog3',
+  },
+  {
+    title: 'What Filmmaking Taught Me About Product Storytelling',
+    description: 'Lessons from watching audiences drift away — and what it means for how we explain products.',
+    image: blogFilmmakingImage,
+    tags: ['Storytelling', 'Product', 'Marketing'],
+    date: 'January 2026',
+    link: '/blog4',
   },
 ];
 
