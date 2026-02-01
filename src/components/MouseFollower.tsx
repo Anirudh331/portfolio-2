@@ -70,6 +70,8 @@ const MouseFollower = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<CharacterType>('anibot');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const animationRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
   const wasIdleRef = useRef(true);
@@ -109,16 +111,46 @@ const MouseFollower = () => {
     return () => window.removeEventListener('contextmenu', handleContextMenu);
   }, []);
 
+  // Handle drag functionality
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setTargetPosition({ x: e.clientX, y: e.clientY });
+      if (isDragging) {
+        // While dragging, follow cursor directly
+        setPosition({ x: e.clientX, y: e.clientY });
+        setTargetPosition({ x: e.clientX, y: e.clientY });
+      } else {
+        setTargetPosition({ x: e.clientX, y: e.clientY });
+      }
+    };
+
+    const handleMouseUp = () => {
+      if (isDragging) {
+        setIsDragging(false);
+        wasIdleRef.current = true;
+        setCharacterState('idle');
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
+  const handleMouseDown = (e: MouseEvent) => {
+    if (e.button === 0) { // Left click only
+      e.preventDefault();
+      setIsDragging(true);
+      setCharacterState('shocked');
+    }
+  };
 
   useEffect(() => {
+    // Skip animation while dragging
+    if (isDragging) return;
+
     const animate = () => {
       setPosition((prev) => {
         const dx = targetPosition.x - prev.x;
@@ -261,7 +293,7 @@ const MouseFollower = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [targetPosition, characterState]);
+  }, [targetPosition, characterState, isDragging]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -312,13 +344,17 @@ const MouseFollower = () => {
       {/* Character */}
       <div
         ref={characterRef}
-        className="fixed pointer-events-auto z-40 cursor-pointer"
+        className="fixed pointer-events-auto z-40"
         style={{
           left: position.x - 24,
           top: position.y - 48,
           transform: `scaleX(${isFlipped ? -1 : 1})`,
-          transition: 'transform 0.2s ease-out',
+          transition: isDragging ? 'none' : 'transform 0.2s ease-out',
+          cursor: isDragging ? 'grabbing' : isHovering ? 'grab' : 'pointer',
         }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => !isDragging && setIsHovering(false)}
+        onMouseDown={(e) => handleMouseDown(e.nativeEvent)}
       >
         {/* Idle character */}
         <img
