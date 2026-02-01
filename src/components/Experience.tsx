@@ -48,7 +48,7 @@ const experiences: ExperienceItem[] = [
     location: 'India',
     skills: ['Direction', 'Editing', 'Storytelling', 'Post-Production', 'Team Leadership'],
     description: [
-      'Directed short films with national-level recognition. Focus on psychological and socially grounded narratives.',
+      'Directed short films with national-level recognition.',
       'Working with small teams and limited budgets while maintaining audience-focused storytelling.',
     ],
   },
