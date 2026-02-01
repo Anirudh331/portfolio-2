@@ -20,12 +20,12 @@ const Hero = () => {
             <img
               src={profileAvatar}
               alt="Anirudh"
-              className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border dark:opacity-0 transition-opacity duration-0"
+              className="absolute inset-0 w-24 h-24 rounded-full border-2 border-border dark:opacity-0 transition-opacity duration-0"
             />
             <img
               src={profileAvatarDark}
               alt="Anirudh"
-              className="absolute inset-0 w-24 h-24 rounded-xl border-2 border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
+              className="absolute inset-0 w-24 h-24 rounded-full border-2 border-border opacity-0 dark:opacity-100 transition-opacity duration-0"
             />
           </div>
           <div className="absolute -bottom-1 -right-1 flex items-center gap-1 px-2 py-0.5 text-xs bg-muted rounded-full border">
