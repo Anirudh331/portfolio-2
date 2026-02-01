@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, Sun, Moon } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import profileAvatar from '@/assets/profile-avatar.png';
+import headerLogoLight from '@/assets/header-logo-light.png';
 import headerLogoDark from '@/assets/header-logo-dark.png';
 import {
   CommandDialog,
@@ -91,20 +91,20 @@ const Navbar = () => {
         <div className="flex items-center justify-between px-2">
           <div className="flex items-baseline gap-4">
             <a href="/" className="hover-scale will-change-transform" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-              <div className="relative h-10 w-10">
+              <div className="relative h-12 w-12">
                 <img
-                  src={profileAvatar}
-                  alt="Ram"
+                  src={headerLogoLight}
+                  alt="ANR Logo"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-cover dark:opacity-0 transition-opacity duration-0"
+                  className="absolute inset-0 h-12 w-12 object-contain dark:opacity-0 transition-opacity duration-0"
                 />
                 <img
                   src={headerLogoDark}
                   alt="ANR Logo"
                   loading="eager"
                   fetchPriority="high"
-                  className="absolute inset-0 h-10 w-10 rounded-md border border-border object-contain opacity-0 dark:opacity-100 transition-opacity duration-0"
+                  className="absolute inset-0 h-12 w-12 object-contain opacity-0 dark:opacity-100 transition-opacity duration-0"
                 />
               </div>
             </a>
