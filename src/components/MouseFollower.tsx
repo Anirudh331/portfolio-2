@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import characterIdle from '@/assets/character-idle.png';
-import characterRunning from '@/assets/character-running.png';
+import characterRunning from '@/assets/character-running.gif';
 import characterShocked from '@/assets/character-shocked.png';
 import characterClimb from '@/assets/character-climb.png';
 import characterRunDown from '@/assets/character-run-down.png';
