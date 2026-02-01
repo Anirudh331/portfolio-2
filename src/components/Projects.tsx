@@ -20,7 +20,7 @@ const projects: Project[] = [
     description: 'A student-focused education platform addressing academic backlogs. Built for university students who need structured support.',
     status: 'MVP / Early Build',
     statusIcon: 'building',
-    link: '#',
+    link: 'https://backlogbuddy.in',
   },
   {
     name: 'Graduate Prep Platform',
