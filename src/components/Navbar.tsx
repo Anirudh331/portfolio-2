@@ -17,6 +17,8 @@ const searchItems = [
   { title: 'Work Experience', href: '/#experience', category: 'Pages' },
   { title: 'Projects', href: '/#projects', category: 'Pages' },
   { title: 'All Blogs', href: '/blog', category: 'Pages' },
+  { title: 'Books', href: '/books', category: 'Pages' },
+  { title: 'Movies', href: '/movies', category: 'Pages' },
   { title: 'What storytelling teaches marketing', href: '/blog1', category: 'Blogs' },
   { title: 'Why most student platforms fail', href: '/blog2', category: 'Blogs' },
   { title: 'Building before being ready', href: '/blog3', category: 'Blogs' },

@@ -28,13 +28,13 @@ const SetupLinks = () => {
       title: 'Books',
       description: 'Books that have influenced my thinking and growth.',
       icon: BookOpen,
-      link: '#',
+      link: '/books',
     },
     {
       title: 'Movies',
       description: 'Movies and shows that have inspired and entertained me.',
       icon: Film,
-      link: '#',
+      link: '/movies',
     },
   ];
 
