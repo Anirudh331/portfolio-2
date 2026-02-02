@@ -25,11 +25,10 @@ const experiences: ExperienceItem[] = [
     link: 'https://backlogbuddy.in',
   },
   {
-    company: 'StudyDeck',
+    company: 'Graduate Prep Platform',
     logo: companyUpsurge,
     role: 'Founder · Product Strategy',
     period: '2024 - 2025',
-    link: 'https://studydeck.in',
   },
   {
     company: 'Independent Short Films',
