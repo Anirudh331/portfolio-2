@@ -41,8 +41,29 @@ const MouseFollower = () => {
       setTargetPosition({ x: e.clientX, y: e.clientY });
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (touch) {
+        setTargetPosition({ x: touch.clientX, y: touch.clientY });
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (touch) {
+        setTargetPosition({ x: touch.clientX, y: touch.clientY });
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
   }, []);
 
   useEffect(() => {
@@ -199,10 +220,9 @@ const MouseFollower = () => {
     };
   }, []);
 
-  // Hide on mobile - mouse following doesn't work on touch devices
-  if (isMobile) {
-    return null;
-  }
+  // On mobile, make character smaller for better fit
+  const characterSize = isMobile ? 'w-10 h-10' : 'w-12 h-12';
+  const smallCharacterSize = isMobile ? 'w-6 h-6' : 'w-8 h-8';
 
   return (
     <div
@@ -218,7 +238,7 @@ const MouseFollower = () => {
       <img
         src={characterIdle}
         alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+        className={`${characterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'idle' ? 1 : 0,
@@ -229,13 +249,13 @@ const MouseFollower = () => {
       <img
         src={characterShocked}
         alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
+        className={`${smallCharacterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'shocked' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
+          marginTop: isMobile ? '8px' : '8px',
+          marginLeft: isMobile ? '8px' : '8px',
           transform: 'scaleX(-1)',
         }}
       />
@@ -243,20 +263,20 @@ const MouseFollower = () => {
       <img
         src={characterHappy}
         alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
+        className={`${smallCharacterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'happy' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
+          marginTop: isMobile ? '8px' : '8px',
+          marginLeft: isMobile ? '8px' : '8px',
         }}
       />
       {/* Floating character - when cursor is straight up (90 degrees) */}
       <img
         src={characterFloat}
         alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+        className={`${characterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'floating' ? 1 : 0,
@@ -267,7 +287,7 @@ const MouseFollower = () => {
       <img
         src={characterClimb}
         alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+        className={`${characterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'climbing' ? 1 : 0,
@@ -279,7 +299,7 @@ const MouseFollower = () => {
       <img
         src={characterFall}
         alt=""
-        className="w-12 h-12 object-contain absolute inset-0"
+        className={`${characterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'falling' ? 1 : 0,
@@ -290,13 +310,13 @@ const MouseFollower = () => {
       <img
         src={characterRunDown}
         alt=""
-        className="w-8 h-8 object-contain absolute inset-0"
+        className={`${smallCharacterSize} object-contain absolute inset-0`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'descending' ? 1 : 0,
           transition: 'opacity 0.15s ease-out',
-          marginTop: '8px',
-          marginLeft: '8px',
+          marginTop: isMobile ? '8px' : '8px',
+          marginLeft: isMobile ? '8px' : '8px',
           transform: 'scaleX(-1)',
         }}
       />
@@ -304,7 +324,7 @@ const MouseFollower = () => {
       <img
         src={characterRunning}
         alt=""
-        className={`w-12 h-12 object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
+        className={`${characterSize} object-contain ${characterState === 'running' ? 'animate-walk' : ''}`}
         style={{
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
           opacity: characterState === 'running' ? 1 : 0,
