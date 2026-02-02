@@ -37,7 +37,7 @@ const experiences: ExperienceItem[] = [
     link: 'https://backlogbuddy.in',
   },
   {
-    company: 'Graduate Prep Platform',
+    company: 'StudyDeck',
     logo: companyUpsurge,
     role: 'Founder · Product Strategy',
     period: '2024 - 2025',
@@ -46,6 +46,7 @@ const experiences: ExperienceItem[] = [
     description: [
       'Developing a preparation-focused platform for graduates navigating exams and career decisions.',
     ],
+    link: 'https://studydeck.in',
   },
   {
     company: 'Independent Short Films',
