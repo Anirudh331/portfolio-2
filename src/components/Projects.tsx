@@ -24,12 +24,12 @@ const projects: Project[] = [
     link: 'https://backlogbuddy.in',
   },
   {
-    name: 'Graduate Prep Platform',
+    name: 'StudyDeck',
     image: projectAppwrite,
     description: 'A preparation ecosystem for graduates navigating exams and career decisions. Focused on clarity over overwhelm.',
     status: 'Concept + Development',
     statusIcon: 'concept',
-    link: '#',
+    link: 'https://studydeck.in',
   },
 ];
 
