@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
 import { Reveal } from '@/hooks/useScrollReveal';
@@ -62,6 +63,7 @@ const ComparisonBlock = ({ left, right }: { left: string; right: string }) => (
 const Blog5 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Storytelling vs Performance Marketing — Anirudh N Raiker" description="Why the storytelling vs performance debate is a false fight. By Anirudh N Raiker." canonical="https://anirudhworks.site/blog5" />
       <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">

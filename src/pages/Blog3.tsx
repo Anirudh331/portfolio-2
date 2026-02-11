@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
 import { Reveal } from '@/hooks/useScrollReveal';
@@ -44,6 +45,7 @@ const BulletPoint = ({ children }: { children: React.ReactNode }) => (
 const Blog3 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="5 Organic Growth Strategies for 2026 — Anirudh N Raiker" description="High-leverage organic growth systems that compound over time. By Anirudh N Raiker." canonical="https://anirudhworks.site/blog3" />
       <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">

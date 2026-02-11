@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import MouseFollower from '@/components/MouseFollower';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 import { Film } from 'lucide-react';
@@ -42,6 +43,7 @@ const MovieCard = ({ movie }: { movie: Movie }) => (
 const Movies = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Movies — Anirudh N Raiker" description="Movies and shows that inspired Anirudh N Raiker's storytelling and creative work." canonical="https://anirudhworks.site/movies" />
       <MouseFollower />
       <Navbar />
       <main className="container mx-auto px-4 py-12">

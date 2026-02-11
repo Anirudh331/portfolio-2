@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
 import { Reveal } from '@/hooks/useScrollReveal';
@@ -26,6 +27,7 @@ const RevealSection = ({ children, delay = 0 }: { children: React.ReactNode; del
 const Blog2 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="B2B SaaS SEO Playbook 2026 — Anirudh N Raiker" description="A compact, actionable SEO guide for SaaS companies. By Anirudh N Raiker." canonical="https://anirudhworks.site/blog2" />
       <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">

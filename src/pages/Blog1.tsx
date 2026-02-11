@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
 import { Reveal } from '@/hooks/useScrollReveal';
@@ -10,6 +11,7 @@ import blogMindFirstImage from '@/assets/blog-mind-first.svg';
 const Blog1 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Why What Comes to Mind First Wins — Anirudh N Raiker" description="Understanding accessibility-based decision making and why it matters for your brand. By Anirudh N Raiker." canonical="https://anirudhworks.site/blog1" />
       <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">

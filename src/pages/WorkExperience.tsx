@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import MouseFollower from '@/components/MouseFollower';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 import { ExternalLink } from 'lucide-react';
@@ -79,6 +80,7 @@ const SkillBadge = ({ name }: { name: string }) => (
 const WorkExperience = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Work Experience — Anirudh N Raiker" description="Professional journey of Anirudh N Raiker — building education startups, marketing, and product." canonical="https://anirudhworks.site/work-experience" />
       <MouseFollower />
       <Navbar />
       <main className="container mx-auto px-4 py-12">
