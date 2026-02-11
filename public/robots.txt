@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://anirudhnraiker.com/sitemap.xml
+Sitemap: https://anirudhworks.site/sitemap.xml
