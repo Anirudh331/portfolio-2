@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, X } from 'lucide-react';
 import blogMindFirst from '@/assets/blog-mind-first.svg';
@@ -118,6 +119,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Blog — Anirudh N Raiker" description="Thoughts on marketing, storytelling, organic growth, and building education products by Anirudh N Raiker." canonical="https://anirudhworks.site/blog" />
       <Navbar />
       <main className="container mx-auto px-4 py-16">
         {/* Header */}

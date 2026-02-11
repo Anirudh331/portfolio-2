@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import MouseFollower from '@/components/MouseFollower';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
 import { BookOpen } from 'lucide-react';
@@ -123,6 +124,7 @@ const BookCard = ({ book }: { book: Book }) => (
 const Books = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Books — Anirudh N Raiker" description="Books that shaped Anirudh N Raiker's thinking on storytelling, product building, and life." canonical="https://anirudhworks.site/books" />
       <MouseFollower />
       <Navbar />
       <main className="container mx-auto px-4 py-12">

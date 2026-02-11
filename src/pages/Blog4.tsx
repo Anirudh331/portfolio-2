@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 import ReadingProgress from '@/components/ReadingProgress';
 import BlogInteractions from '@/components/BlogInteractions';
 import { Reveal } from '@/hooks/useScrollReveal';
@@ -38,6 +39,7 @@ const Highlight = ({ children }: { children: React.ReactNode }) => (
 const Blog4 = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Filmmaking & Product Storytelling — Anirudh N Raiker" description="What filmmaking taught about product storytelling and holding attention. By Anirudh N Raiker." canonical="https://anirudhworks.site/blog4" />
       <ReadingProgress />
       <Navbar />
       <main className="container mx-auto px-4 py-8">
