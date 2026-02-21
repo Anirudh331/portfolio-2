@@ -25,7 +25,7 @@ const projects: Project[] = [
   },
   {
     name: 'StudyDeck',
-    image: projectAppwrite,
+    image: projectStudydeck,
     description: 'A preparation ecosystem for graduates navigating exams and career decisions. Focused on clarity over overwhelm.',
     status: 'Concept + Development',
     statusIcon: 'concept',
