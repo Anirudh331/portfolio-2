@@ -1,5 +1,5 @@
 import projectNotesbuddy from '@/assets/project-notesbuddy.png';
-import projectAppwrite from '@/assets/project-appwrite.png';
+import projectStudydeck from '@/assets/project-studydeck.png';
 import projectSyncify from '@/assets/project-syncify.png';
 import projectPasandida from '@/assets/project-pasandida.png';
 import { Rocket, Film, BookOpen } from 'lucide-react';
