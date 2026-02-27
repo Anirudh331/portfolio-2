@@ -89,10 +89,10 @@ const Projects = () => {
 
       <Reveal delay={200}>
         <a
-          href="#"
+          href="/projects"
           className="inline-block mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors link-animate"
         >
-          View all work
+          View all projects →
         </a>
       </Reveal>
     </section>
