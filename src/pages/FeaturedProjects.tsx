@@ -3,9 +3,9 @@ import Footer from '@/components/Footer';
 import MouseFollower from '@/components/MouseFollower';
 import projectNotesbuddy from '@/assets/project-notesbuddy.png';
 import projectStudydeck from '@/assets/project-studydeck.png';
+import projectKitro from '@/assets/project-kitro.png';
 import { Rocket, BookOpen, Wrench } from 'lucide-react';
 import { Reveal, StaggerContainer } from '@/hooks/useScrollReveal';
-
 interface Project {
   name: string;
   image: string;
@@ -40,7 +40,7 @@ const projects: Project[] = [
   },
   {
     name: 'Kitro.in',
-    image: '',
+    image: projectKitro,
     description: 'Marketing Decision Tools — Free & Private. Helping marketers make faster, smarter decisions without sharing sensitive data.',
     longDescription: 'Kitro.in offers a suite of free, privacy-first marketing decision tools. From budget allocators to campaign planners — everything runs locally with zero data collection.',
     status: 'Live',
