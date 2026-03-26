@@ -12,16 +12,16 @@ interface Movie {
 }
 
 const movies: Movie[] = [
-  { title: 'Ford v Ferrari', year: '2019', image: 'https://cms.ramx.in/uploads/ford_4f7f595581.jpg' },
-  { title: 'Whiplash', year: '2014', image: 'https://cms.ramx.in/uploads/whip_25bfdde04d.jpg' },
-  { title: 'The Social Network', year: '2010', image: 'https://cms.ramx.in/uploads/ss_3f59430235.jpg' },
-  { title: 'Rush', year: '2013', image: 'https://cms.ramx.in/uploads/rush_34ea6012d7.jpg' },
-  { title: 'Steve Jobs', year: '2015', image: 'https://cms.ramx.in/uploads/steve_cfaa2406dc.jpeg' },
-  { title: 'The Founder', year: '2016', image: 'https://cms.ramx.in/uploads/f_313d80b8d8.jpg' },
-  { title: 'Silicon Valley', year: '2014', image: 'https://cms.ramx.in/uploads/sili_5ab26d4209.jpg' },
-  { title: 'Black Swan', year: '2010', image: 'https://cms.ramx.in/uploads/black_edb302a741.jpg' },
-  { title: 'The Big Short', year: '2015', image: 'https://cms.ramx.in/uploads/the_big_short_60be421959.jpg' },
-  { title: 'F1', year: '2019', image: 'https://cms.ramx.in/uploads/f1_8dc82c8172.png' },
+  { title: 'Ford v Ferrari', year: '2019', image: 'https://image.tmdb.org/t/p/w500/6ApDtO7xaWAfPqfi2IARXIzj8QS.jpg' },
+  { title: 'Whiplash', year: '2014', image: 'https://image.tmdb.org/t/p/w500/7fn624j5lj3xTme2SgiLCeuedos.jpg' },
+  { title: 'The Social Network', year: '2010', image: 'https://image.tmdb.org/t/p/w500/n0ybibhJtQ5icDqTp8eRytcIHJx.jpg' },
+  { title: 'Rush', year: '2013', image: 'https://image.tmdb.org/t/p/w500/vfBFpfVYCDButBqzGREPkhY0OOk.jpg' },
+  { title: 'Steve Jobs', year: '2015', image: 'https://image.tmdb.org/t/p/w500/cTh3dLzCUOJ3MHjaYKRuIXbmpE3.jpg' },
+  { title: 'The Founder', year: '2016', image: 'https://image.tmdb.org/t/p/w500/eDCMONA5V0KLShlVJMq0sEQ7MJT.jpg' },
+  { title: 'Silicon Valley', year: '2014', image: 'https://image.tmdb.org/t/p/w500/dc5r71XI1gD4YwIhMBBWHWNlpkF.jpg' },
+  { title: 'Black Swan', year: '2010', image: 'https://image.tmdb.org/t/p/w500/rR2hJMBBhQNqSV2CEWjkuGnVjP5.jpg' },
+  { title: 'The Big Short', year: '2015', image: 'https://image.tmdb.org/t/p/w500/idk04cHwpWajFjJcinMmMUDgJC0.jpg' },
+  { title: 'F1', year: '2025', image: 'https://image.tmdb.org/t/p/w500/pBpMnSzQMfHPEJonJOMLOjSDfmE.jpg' },
 ];
 
 const MovieCard = ({ movie }: { movie: Movie }) => (
