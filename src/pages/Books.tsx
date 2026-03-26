@@ -49,58 +49,58 @@ const bookCategories: BookCategory[] = [
   {
     name: 'Power & Influence',
     books: [
-      { title: 'The 48 Laws of Power', author: 'Robert Greene', image: 'https://cms.ramx.in/uploads/power_ab60de9225.jpg' },
-      { title: 'The Art of Seduction', author: 'Robert Greene', image: 'https://cms.ramx.in/uploads/sed_2814ba117f.jpg' },
-      { title: 'The Laws of Human Nature', author: 'Robert Greene', image: 'https://cms.ramx.in/uploads/human_956df0bdff.jpg' },
-      { title: 'Surrounded by Idiots', author: 'Thomas Erikson', image: 'https://cms.ramx.in/uploads/sur_d799f702b9.jpg' },
+      { title: 'The 48 Laws of Power', author: 'Robert Greene', image: 'https://covers.openlibrary.org/b/isbn/0140280197-L.jpg' },
+      { title: 'The Art of Seduction', author: 'Robert Greene', image: 'https://covers.openlibrary.org/b/isbn/0142001198-L.jpg' },
+      { title: 'The Laws of Human Nature', author: 'Robert Greene', image: 'https://covers.openlibrary.org/b/isbn/0525428143-L.jpg' },
+      { title: 'Surrounded by Idiots', author: 'Thomas Erikson', image: 'https://covers.openlibrary.org/b/isbn/1250179947-L.jpg' },
     ],
   },
   {
     name: 'Mastery & Focus',
     books: [
-      { title: 'Mastery', author: 'Robert Greene', image: 'https://cms.ramx.in/uploads/mas_6c37271664.jpg' },
-      { title: 'Deep Work', author: 'Cal Newport', image: 'https://cms.ramx.in/uploads/cal_8e525e8d58.jpg' },
-      { title: 'Limitless', author: 'Jim Kwik', image: 'https://cms.ramx.in/uploads/limit_2d552da918.jpg' },
+      { title: 'Mastery', author: 'Robert Greene', image: 'https://covers.openlibrary.org/b/isbn/014312417X-L.jpg' },
+      { title: 'Deep Work', author: 'Cal Newport', image: 'https://covers.openlibrary.org/b/isbn/1455586692-L.jpg' },
+      { title: 'Limitless', author: 'Jim Kwik', image: 'https://covers.openlibrary.org/b/isbn/1401958230-L.jpg' },
     ],
   },
   {
     name: 'Discipline & Grit',
     books: [
-      { title: 'No Excuses', author: 'Brian Tracy', image: 'https://cms.ramx.in/uploads/no_f50270ef96.jpg' },
-      { title: "Can't Hurt Me", author: 'David Goggins', image: 'https://cms.ramx.in/uploads/dav_e2a747206b.jpg' },
-      { title: 'Unfuck Yourself', author: 'Gary John Bishop', image: 'https://cms.ramx.in/uploads/unf_7a0d46098d.jpg' },
+      { title: 'No Excuses', author: 'Brian Tracy', image: 'https://covers.openlibrary.org/b/isbn/1593156324-L.jpg' },
+      { title: "Can't Hurt Me", author: 'David Goggins', image: 'https://covers.openlibrary.org/b/isbn/1544512287-L.jpg' },
+      { title: 'Unfuck Yourself', author: 'Gary John Bishop', image: 'https://covers.openlibrary.org/b/isbn/0062803832-L.jpg' },
     ],
   },
   {
     name: 'Meaning & Mind',
     books: [
-      { title: "Man's Search for Meaning", author: 'Viktor E. Frankl', image: 'https://cms.ramx.in/uploads/man_8d6ae86ae5.jpg' },
-      { title: 'The Power of Your Subconscious Mind', author: 'Joseph Murphy', image: 'https://cms.ramx.in/uploads/sub_2357079654.jpg' },
+      { title: "Man's Search for Meaning", author: 'Viktor E. Frankl', image: 'https://covers.openlibrary.org/b/isbn/0807014273-L.jpg' },
+      { title: 'The Power of Your Subconscious Mind', author: 'Joseph Murphy', image: 'https://covers.openlibrary.org/b/isbn/0735204551-L.jpg' },
     ],
   },
   {
     name: 'Habits & Systems',
     books: [
-      { title: 'The 7 Habits of Highly Effective People', author: 'Stephen R. Covey', image: 'https://cms.ramx.in/uploads/7_2874ffe16b.png' },
+      { title: 'The 7 Habits of Highly Effective People', author: 'Stephen R. Covey', image: 'https://covers.openlibrary.org/b/isbn/1982137274-L.jpg' },
     ],
   },
   {
     name: 'Attention & Dopamine',
     books: [
-      { title: 'Dopamine Detox', author: 'Thibaut Meurisse', image: 'https://cms.ramx.in/uploads/dop_c5ff6e2d09.jpg' },
-      { title: 'Digital Minimalism', author: 'Cal Newport', image: 'https://cms.ramx.in/uploads/digi_17b77229cd.jpg' },
+      { title: 'Dopamine Detox', author: 'Thibaut Meurisse', image: 'https://covers.openlibrary.org/b/isbn/B0B3Y5R3S1-L.jpg' },
+      { title: 'Digital Minimalism', author: 'Cal Newport', image: 'https://covers.openlibrary.org/b/isbn/0525536515-L.jpg' },
     ],
   },
   {
     name: 'Creativity',
     books: [
-      { title: 'Steal Like an Artist', author: 'Austin Kleon', image: 'https://cms.ramx.in/uploads/steal_423671344e.jpg' },
+      { title: 'Steal Like an Artist', author: 'Austin Kleon', image: 'https://covers.openlibrary.org/b/isbn/0761169253-L.jpg' },
     ],
   },
   {
     name: 'Big Ideas',
     books: [
-      { title: 'This Explains Everything', author: 'John Brockman', image: 'https://cms.ramx.in/uploads/this_204a41c027.jpg' },
+      { title: 'This Explains Everything', author: 'John Brockman', image: 'https://covers.openlibrary.org/b/isbn/0062230174-L.jpg' },
     ],
   },
 ];
